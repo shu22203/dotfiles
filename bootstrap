@@ -1,0 +1,152 @@
+#!/bin/bash -eu
+# consts
+# --------------
+ROOT_HOME=/var/root
+DOT_HOME=~/dotfiles
+ZPLUG_HOME=~/.zplug
+TPM_HOME=~/.tmux/plugins/tpm
+REMOTE_URL="git@github.com:vwrs/dotfiles.git"
+if which tput >/dev/null 2>&1; then
+  ncolors=$(tput colors)
+fi
+if [ -t 1 ] && [ -n "$ncolors" ] && [ "$ncolors" -ge 8 ]; then
+  RED="$(tput setaf 1)"
+  GREEN="$(tput setaf 2)"
+  YELLOW="$(tput setaf 3)"
+  BLUE="$(tput setaf 4)"
+  BOLD="$(tput bold)"
+  NORMAL="$(tput sgr0)"
+else
+  RED=""
+  GREEN=""
+  YELLOW=""
+  BLUE=""
+  BOLD=""
+  NORMAL=""
+fi
+# functions
+# --------------
+has() {
+  type "$1" > /dev/null 2>&1
+}
+
+usage() {
+  name=`basename $0`
+  echo $BLUE
+  cat <<\EOF
+                   __          __       ___      ___
+                  /\ \        /\ \__  /'___\ __ /\_ \
+                  \_\ \    ___\ \ ,_\/\ \__//\_\\//\ \      __    ____
+ _______          /'_` \  / __`\ \ \/\ \ ,__\/\ \ \ \ \   /'__`\ /',__\      _______
+/\______\      __/\ \L\ \/\ \L\ \ \ \_\ \ \_/\ \ \ \_\ \_/\  __//\__, `\    /\______\
+\/______/     /\_\ \___,_\ \____/\ \__\\ \_\  \ \_\/\____\ \____\/\____/    \/______/
+              \/_/\/__,_ /\/___/  \/__/ \/_/   \/_/\/____/\/____/\/___/
+EOF
+  echo $YELLOW
+  cat <<\EOF
+note:
+Please make sure that you have completed adding ssh key to GitHub.
+EOF
+  echo $BLUE
+  cat <<\EOF
+Commands:
+  init (download dotfiles, zplug, tpm)
+  font (install powerline patched fonts)
+  deploy (override & symlink dotfiles)
+  deploy_root (override & symlink dotfiles, in super user)
+EOF
+  echo $NORMAL
+}
+
+download() {
+  # dotfiles
+  if [ ! -d ${DOT_HOME} ]; then
+    echo "Downloading dotfiles..."
+    mkdir ${DOT_HOME}
+    if has "git"; then
+      git clone --recursive "${REMOTE_URL}" "${DOT_HOME}"
+    else
+      echo "${RED}Please install git.${NORMAL}"
+      exit 1
+    fi
+    echo "${GREEN}Successfully downloaded dotfiles. ✔︎ ${NORMAL}"
+  else
+    echo "${BOLD}dotfiles already exists.${NORMAL}"
+  fi
+  # install vim-plug
+  # curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  # zplug
+  if [ ! -d ${ZPLUG_HOME} ]; then
+    echo "Downloading zplug ..."
+    curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
+    echo "${GREEN}Successfully downloaded zplug in ${ZPLUG_HOME}. ✔︎ ${NORMAL}"
+  else
+    echo "${BOLD}zplug already exists.${NORMAL}"
+  fi
+  # tpm
+  if [ ! -d ${TPM_HOME} ]; then
+    echo "Downloading tpm ..."
+    git clone git@github.com:tmux-plugins/tpm $TPM_HOME
+    echo "${GREEN}Successfully downloaded tpm in ${TPM_HOME}. ✔︎ ${NORMAL}"
+  else
+    echo "${BOLD}tpm already exists.${NORMAL}"
+  fi
+}
+
+symlink_files() {
+  echo "Symlinking dotfiles..."
+  for f in .??*
+  do
+    # ignore list
+    [[ ${f} = ".DS_Store" ]] && continue
+    [[ ${f} = ".git" ]] && continue
+    [[ ${f} = ".gitignore" ]] && continue
+    [[ ${f} = ".gitmodules" ]] && continue
+    [[ ${f} = ".brewfile" ]] && continue
+    # symlink files
+    ln -snfv ${DOT_HOME}/${f} $1/${f}
+  done
+  echo "${GREEN}Successfully symlink dotfiles. ✔︎ ${NORMAL}"
+  echo "${BOLD}To enable zsh, please execute 'chsh'.${NORMAL}"
+}
+
+powerline_fonts() {
+  git clone https://github.com/powerline/fonts.git
+  cd fonts
+  ./install.sh
+  cd ..
+  rm -rf fonts
+}
+
+# main
+# --------------
+main() {
+  echo -n "${BOLD}command: ${NORMAL}"
+  read command
+  case $command in
+    init)
+      download
+      main
+      ;;
+    font)
+      powerline_fonts
+      main
+      ;;
+    deploy)
+      symlink_files $HOME
+      ;;
+    deploy_root)
+      symlink_files $ROOT_HOME
+      ln -s ${HOME}/.zplug ${ROOT_HOME}/.zplug
+      ;;
+    *)
+      echo "${RED}bootstrap: command not found.${NORMAL}"
+      exit 1
+      ;;
+  esac
+}
+
+usage
+main
+
+exit 0
