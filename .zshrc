@@ -182,17 +182,4 @@ bindkey '^S' peco_src
 # "ls" after "cd" automatically
 function chpwd() { ls }
 
-# The next line updates PATH for the Google Cloud SDK.
-source "$HOME/google-cloud-sdk/path.zsh.inc"
-
-# The next line enables shell command completion for gcloud.
-source "$HOME/google-cloud-sdk/completion.zsh.inc"
-
-alias rta="$HOME/Downloads/RTA/bin/rta"
-
-#関数定義(引数3つ)
-tab-color() {
-    echo -ne "\033]6;1;bg;red;brightness;$1\a"
-    echo -ne "\033]6;1;bg;green;brightness;$2\a"
-    echo -ne "\033]6;1;bg;blue;brightness;$3\a"
-}
+source ~/.zshrc.mine
