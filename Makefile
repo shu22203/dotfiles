@@ -11,7 +11,7 @@ brew:
 # core
 	brew install wget
 	brew install zplug
-	brew install vim
+	brew install vim --with-lua
 	brew install zsh
 	brew install tmux
 	brew install hub

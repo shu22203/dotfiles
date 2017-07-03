@@ -51,6 +51,7 @@ export PYTHONPATH=/Users/shu/workspace/Caffe/python:$PYTHONPATH
 export DYLD_FALLBACK_LIBRARY_PATH=/usr/local/cuda/lib:$HOME/.pyenv/versions/anaconda-2.0.1/lib:/usr/local/lib:/usr/lib
 
 export GOPATH=$HOME/go
+export GOBIN=$GOPATH/bin
 
 # -------------------------------------
 # Environment Variables
