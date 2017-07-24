@@ -2,5 +2,11 @@
 *~
 .DS_Store
 TAGS
+.vim/.netrwhist
+.vim/bundle
+.vim/bundle/*
+.vim/autoload/plug.vim
+.vim/plugged
+.vim/plugged/*
 .zshrc.mine
 .gitconfig

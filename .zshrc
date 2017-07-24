@@ -59,15 +59,11 @@ export GOBIN=$GOPATH/bin
 
 export LANG=ja_JP.UTF-8
 
-export PAGER=/usr/local/bin/vimpager
-export MANPAGER=/usr/local/bin/vimpager
-
 # -------------------------------------
 # zsh options
 # -------------------------------------
 
-# export LSCOLORS=Cxfxcxdxbxegedabagacad
-# export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
+export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
 zstyle ':completion:*' list-colors 'di=32' 'ex=31'
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 zstyle ':completion:*:default' menu select=2
@@ -105,9 +101,19 @@ setopt share_history        # share command history data
 # Alias
 # -------------------------------------
 
-# core
-# alias ls='gls --color=auto'
-alias ls="ls -GA"
+# ls color
+case "${OSTYPE}" in
+  darwin*)
+    alias ls="ls -G"
+    alias ll="ls -lG"
+    alias la="ls -alG"
+    ;;
+  linux*)
+   alias ls='ls --color'
+   alias ll='ls -l --color'
+   alias la='ls -la --color'
+   ;;
+esac
 alias lsg="ls | grep "
 
 # vim
