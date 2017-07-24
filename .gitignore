@@ -2,10 +2,10 @@
 *~
 .DS_Store
 TAGS
-vim/bundle
-vim/bundle/*
-vim/autoload/plug.vim
-vim/plugged
-vim/plugged/*
+.vim/bundle
+.vim/bundle/*
+.vim/autoload/plug.vim
+.vim/plugged
+.vim/plugged/*
 .zshrc.mine
 .gitconfig
