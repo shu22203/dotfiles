@@ -39,7 +39,7 @@ export DEFAULT_USER="shu"
 # 重複する要素を自動的に削除
 typeset -U path cdpath fpath manpath
 
-export PATH="/Users/shu/bin:/usr/local/bin:/usr/local/sbin:/bin:/usr/bin:/sbin:/usr/sbin:/Users/shu/.nvm/v0.11.14/bin:/opt/X11/bin:/usr/texbin:/usr/local/heroku/bin:/usr/local/Cellar/nmap/6.47/bin:usr/local/lib:/usr/local/opt/openssl/include/openssl:/Applications/MAMP/Library/bin:/Library/TeX/texbin:/usr/local/Cellar/tomcat@8.0/8.0.41/libexec/bin:/Users/shu/Downloads/RTA/bin:/Users/shu/go/bin"
+export PATH="/Users/shu/bin:/usr/local/bin:/usr/local/sbin:/bin:/usr/bin:/sbin:/usr/sbin:/Users/shu/.nvm/v0.11.14/bin:/opt/X11/bin:/usr/texbin:/usr/local/heroku/bin:/usr/local/Cellar/nmap/6.47/bin:usr/local/lib:/usr/local/opt/openssl/include/openssl:/Applications/MAMP/Library/bin:/Library/TeX/texbin:/usr/local/Cellar/tomcat@8.0/8.0.41/libexec/bin:/Users/shu/Downloads/RTA/bin:/Users/shu/go/bin:/Applications/Firefox.app/Contents/MacOS"
 
 export JAVA_OPTS='-Dfile.encoding=UTF-8'
 export JAVA_HOME='/Library/Java/JavaVirtualMachines/jdk1.8.0_72.jdk/Contents/Home/'
@@ -68,7 +68,9 @@ export MANPAGER=/usr/local/bin/vimpager
 
 # export LSCOLORS=Cxfxcxdxbxegedabagacad
 # export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
-# zstyle ':completion:*' list-colors 'di=32' 'ex=31'
+zstyle ':completion:*' list-colors 'di=32' 'ex=31'
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+zstyle ':completion:*:default' menu select=2
 
 ## 補完機能の強化
 autoload -U compinit

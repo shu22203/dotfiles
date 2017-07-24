@@ -3,22 +3,31 @@
 " ==============================
 call plug#begin()
 
+" Style
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'altercation/vim-colors-solarized'
 
-Plug 'puppetlabs/puppet-syntax-vim'
-Plug 'Shougo/neocomplete.vim'
+" Utils
+Plug 'jacoborus/tender.vim'
+Plug 'Shougo/unite.vim'
+
+" Complesion snippets
+if has('lua') && (( v:version == 703 && has('patch885')) || (v:version >= 704))
+  Plug 'Shougo/neocomplete'
+else 
+  Plug 'Shougo/neocomplecache'
+endif
+Plug 'honza/vim-snippets'
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'
 
 " Programming languages
+Plug 'puppetlabs/puppet-syntax-vim'
 Plug 'vim-ruby/vim-ruby', {'for': 'ruby'}
 Plug 'fatih/vim-go', {'for': 'go'}
 Plug 'vim-php/tagbar-phpctags.vim', {'for': 'php'}
-
-
-" Colorscheme
-Plug 'jacoborus/tender.vim', {'do': 'ln -fnsv ~/.vim/plugged/tender.vim/colors/* ~/.vim/colors' }
+Plug 'hynek/vim-python-pep8-indent',{'for': 'python'}
 
 call plug#end()
 
@@ -31,7 +40,8 @@ filetype plugin indent on
 " vim-airline
 " -----------
 let g:airline_powerline_fonts = 1
-let g:airline_theme = 'tenderplus'
+" let g:airline_theme = 'solarized'
+let g:airline_theme = 'tender'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_enable_branch = 1
 set laststatus=2
@@ -78,6 +88,8 @@ inoremap <expr><C-l> neocomplete#complete_common_string()
 "------------
 " neosnippets
 " -----------
+let g:neosnippet#snippets_directory='~/.vim/bundle/neosnippet-snippets/snippets/'
+
 " Plugin key-mappings.
 imap <C-k> <Plug>(neosnippet_expand_or_jump)
 smap <C-k> <Plug>(neosnippet_expand_or_jump)
@@ -95,8 +107,6 @@ smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 if has('conceal')
   set conceallevel=2 concealcursor=i
 endif
-
-
 
 " ==============================
 " Init
@@ -128,6 +138,16 @@ set smartindent
 set backspace=indent,eol,start
 set mouse=a
 
+
+if has('gui_running')
+    set t_Co=16
+    let g:solarized_termcolors=16
+else
+    " http://stackoverflow.com/questions/7278267/incorrect-colors-with-vim-in-iterm2-using-solarized
+    let g:solarized_termtrans=1
+  endif
+set background=dark
+colorscheme solarized
 
 " ==============================
 " Searching and Moving
@@ -175,6 +195,10 @@ nnoremap <Leader>q :q<CR>
 nnoremap <Leader>wq :wq<CR>
 nnoremap <Leader>qq :q!<CR>
 
+" autocomp palenthesis
+inoremap {<Enter> {}<Left><CR><ESC><S-o>
+inoremap (<Enter> ()<Left><CR><ESC><S-o>
+
 " when move to search results, move to center
 noremap n nzz
 noremap N Nzz
@@ -215,33 +239,36 @@ set fileformats=unix,dos,mac
 set clipboard+=autoselect
 
 
+" ==============================
+" Split Window
+" ==============================
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+nnoremap s <Nop>
+nnoremap sj <C-w>j
+nnoremap sk <C-w>k
+nnoremap sl <C-w>l
+nnoremap sh <C-w>h
+nnoremap sJ <C-w>J
+nnoremap sK <C-w>K
+nnoremap sL <C-w>L
+nnoremap sH <C-w>H
+nnoremap sn gt
+nnoremap sp gT
+nnoremap sr <C-w>r
+nnoremap s= <C-w>=
+nnoremap sw <C-w>w
+nnoremap so <C-w>_<C-w>|
+nnoremap sO <C-w>=
+nnoremap sN :<C-u>bn<CR>
+nnoremap sP :<C-u>bp<CR>
+nnoremap st :<C-u>tabnew<CR>
+nnoremap sT :<C-u>Unite tab<CR>
+nnoremap ss :<C-u>sp<CR>
+nnoremap sv :<C-u>vs<CR>
+nnoremap sq :<C-u>q<CR>
+nnoremap sQ :<C-u>bd<CR>
+nnoremap sb :<C-u>Unite buffer_tab -buffer-name=file<CR>
+nnoremap sB :<C-u>Unite buffer -buffer-name=file<CR>
+nnoremap sf :<C-u>Unite file<CR>
 
 

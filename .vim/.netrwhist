@@ -1,0 +1,5 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =3
+let g:netrw_dirhist_1='/Users/shu/coins/coins-1.5-en/src/coins/ssa'
+let g:netrw_dirhist_2='/Users/shu/workspace/fanapp-web/app/api'
+let g:netrw_dirhist_3='/Users/shu/workspace/vim_practice/auto_complete/webapp'
