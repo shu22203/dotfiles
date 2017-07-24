@@ -104,12 +104,12 @@ setopt share_history        # share command history data
 # ls color
 case "${OSTYPE}" in
   darwin*)
-    alias ls="ls -G"
+    alias ls="ls -aG"
     alias ll="ls -lG"
     alias la="ls -alG"
     ;;
   linux*)
-   alias ls='ls --color'
+   alias ls='ls -a --color'
    alias ll='ls -l --color'
    alias la='ls -la --color'
    ;;
