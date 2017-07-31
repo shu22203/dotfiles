@@ -57,7 +57,14 @@ let g:neocomplete#enable_at_startup = 1
 " Use smartcase.
 let g:neocomplete#enable_smart_case = 1
 " Set minimum syntax keyword length.
-let g:neocomplete#sources#syntax#min_keyword_length = 2
+let g:neocomplete#sources#syntax#min_keyword_length = 1
+" 区切り文字まで補完する
+let g:neocomplete#enable_auto_delimiter = 1
+" 1文字目の入力から補完のポップアップを表示
+let g:neocomplete#auto_completion_start_length = 1
+" バックスペースで補完のポップアップを閉じる
+inoremap <expr><BS> neocomplete#smart_close_popup()."<C-h>"
+
 let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
 " Define keyword.
 if !exists('g:neocomplete#keyword_patterns')
@@ -106,7 +113,7 @@ smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
  
 " For snippet_complete marker.
 if has('conceal')
-  set conceallevel=2 concealcursor=i
+  set conceallevel=1 concealcursor=i
 endif
 
 "------------
@@ -115,6 +122,9 @@ endif
 let g:go_highlight_functions = 1
 let g:go_highlight_method = 1
 let g:go_highlight_structs = 1
+let g:go_snippet_engine = "neosnippet"
+autocmd FileType go :highlight goErr ctermfg=214
+autocmd FileType go :match goErr /\<err\>/
 
 " ==============================
 " Init
@@ -145,7 +155,7 @@ set smartindent
 " others
 set backspace=indent,eol,start
 set mouse=a
-
+set completeopt=menu
 
 if has('gui_running')
     set t_Co=16
