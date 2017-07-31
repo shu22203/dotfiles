@@ -11,6 +11,7 @@ Plug 'altercation/vim-colors-solarized'
 " Utils
 Plug 'jacoborus/tender.vim'
 Plug 'Shougo/unite.vim'
+Plug 'tpope/vim-markdown'
 
 " Complesion snippets
 if has('lua') && (( v:version == 703 && has('patch885')) || (v:version >= 704))
@@ -108,6 +109,13 @@ if has('conceal')
   set conceallevel=2 concealcursor=i
 endif
 
+"------------
+" vim-go
+" -----------
+let g:go_highlight_functions = 1
+let g:go_highlight_method = 1
+let g:go_highlight_structs = 1
+
 " ==============================
 " Init
 " ==============================
@@ -148,6 +156,19 @@ else
   endif
 set background=dark
 colorscheme solarized
+
+let g:markdown_fenced_languages = [
+\  'css',
+\  'go',
+\  'javascript',
+\  'js=javascript',
+\  'json=javascript',
+\  'ruby',
+\  'sass',
+\  'xml',
+\  'erlang',
+\  'sql',
+\]
 
 " ==============================
 " Searching and Moving
