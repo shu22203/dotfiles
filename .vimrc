@@ -8,10 +8,19 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'altercation/vim-colors-solarized'
 
+" Markdown
+Plug 'plasticboy/vim-markdown'
+Plug 'kannokanno/previm'
+Plug 'tyru/open-browser.vim'
+
+" Directory tree
+Plug 'scrooloose/nerdtree'
+
 " Utils
 Plug 'jacoborus/tender.vim'
 Plug 'Shougo/unite.vim'
 Plug 'tpope/vim-markdown'
+Plug 'thinca/vim-quickrun'
 
 " Complesion snippets
 if has('lua') && (( v:version == 703 && has('patch885')) || (v:version >= 704))
@@ -34,97 +43,6 @@ call plug#end()
 
 filetype plugin indent on
 
-" ==============================
-" Plugin options
-" ==============================
-" -----------
-" vim-airline
-" -----------
-let g:airline_powerline_fonts = 1
-" let g:airline_theme = 'solarized'
-let g:airline_theme = 'tender'
-let g:airline#extensions#tabline#enabled = 1
-let g:airline_enable_branch = 1
-set laststatus=2
-
-" -----------
-" neocomplete
-" -----------
-" Disable AutoComplPop.
-let g:acp_enableAtStartup = 0
-" Use neocomplete.
-let g:neocomplete#enable_at_startup = 1
-" Use smartcase.
-let g:neocomplete#enable_smart_case = 1
-" Set minimum syntax keyword length.
-let g:neocomplete#sources#syntax#min_keyword_length = 1
-" 区切り文字まで補完する
-let g:neocomplete#enable_auto_delimiter = 1
-" 1文字目の入力から補完のポップアップを表示
-let g:neocomplete#auto_completion_start_length = 1
-" バックスペースで補完のポップアップを閉じる
-inoremap <expr><BS> neocomplete#smart_close_popup()."<C-h>"
-
-let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
-" Define keyword.
-if !exists('g:neocomplete#keyword_patterns')
-    let g:neocomplete#keyword_patterns = {}
-endif
-let g:neocomplete#keyword_patterns['default'] = '\h\w*'
-" Enable heavy omni completion.
-if !exists('g:neocomplete#sources#omni#input_patterns')
-  let g:neocomplete#sources#omni#input_patterns = {}
-endif
-" connect a dictionary file with filetype.
-let g:neocomplete#sources#dictionary#dictionaries = {
-  \ '_'   : '',
-  \ 'php' : '~/.vim/dict/PHP.dict',
-  \ 'tex' : '~/.vim/plugged/vim-latex/ftplugin/latex-suite/dictionaries/dictionary',
-  \}
-" for vim-R-plugin
-let g:neocomplete#sources#omni#input_patterns.r = '[[:alnum:].\\]\+'
-" Enable omni completion.
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
-inoremap <expr><C-g> neocomplete#undo_completion()
-inoremap <expr><C-l> neocomplete#complete_common_string()
-
-"------------
-" neosnippets
-" -----------
-let g:neosnippet#snippets_directory='~/.vim/bundle/neosnippet-snippets/snippets/'
-
-" Plugin key-mappings.
-imap <C-k> <Plug>(neosnippet_expand_or_jump)
-smap <C-k> <Plug>(neosnippet_expand_or_jump)
-xmap <C-k> <Plug>(neosnippet_expand_target)
-
-" SuperTab like snippets behavior.
-imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-\ "\<Plug>(neosnippet_expand_or_jump)"
-\: pumvisible() ? "\<C-n>" : "\<TAB>"
-smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-\ "\<Plug>(neosnippet_expand_or_jump)"
-\: "\<TAB>"
- 
-" For snippet_complete marker.
-if has('conceal')
-  set conceallevel=1 concealcursor=i
-endif
-
-"------------
-" vim-go
-" -----------
-let g:go_highlight_functions = 1
-let g:go_highlight_method = 1
-let g:go_highlight_structs = 1
-let g:go_snippet_engine = "neosnippet"
-autocmd FileType go :highlight goErr ctermfg=214
-autocmd FileType go :match goErr /\<err\>/
 
 " ==============================
 " Init
@@ -139,8 +57,6 @@ set showmatch
 set wrap
 set whichwrap=b,s,h,l,<,>,[,]
 set cursorline
-set splitright
-set splitbelow
 
 " tab, indent
 "
@@ -152,10 +68,15 @@ set expandtab
 set autoindent
 set smartindent
 
+
 " others
 set backspace=indent,eol,start
+set wildmenu
+" set wildmode=list:full
+set wildmode=full:list
 set mouse=a
 set completeopt=menu
+set hidden
 
 if has('gui_running')
     set t_Co=16
@@ -239,7 +160,7 @@ noremap g* g*zz
 noremap g# g#zz
 
 " <C-p> to paste mode
-set pastetoggle=<C-p>
+set pastetoggle=<Leader>p
 
 " Easy moving along splits
 nnoremap <C-h> <C-w>h
@@ -256,23 +177,62 @@ nnoremap <Leader>5 yyPVr-
 nnoremap <Leader>6 yyPVr^
 nnoremap <Leader>7 yyPVr"
 
-
 " ==============================
 " Language
 " ==============================
 set encoding=utf-8
 set fileformats=unix,dos,mac
 
-
 " ==============================
 " Clipboard
 " ==============================
 set clipboard+=autoselect
 
+" ==========================
+" special Key
+" ==========================
+set list
+set listchars=tab:»-,trail:-,extends:»,precedes:«
+highlight specialKey ctermfg=darkgray
 
-" ==============================
+" ==========================
+" Backup
+" ==========================
+set autowrite
+set hidden
+set backup
+set backupdir=$HOME/.vimback
+set directory=$HOME/.vimtmp
+set history=10000
+set updatetime=500
+
+" ==========================
+" Status Line
+" ==========================
+set showcmd
+set laststatus=2
+
+" ==========================
+" File Type
+" ==========================
+if has('autocmd')
+  autocmd BufNewFile,BufRead *.go setlocal tabstop=4 softtabstop=4 shiftwidth=4
+  autocmd FileType go nmap <leader>b  <Plug>(go-build)
+  autocmd FileType go nmap <leader>r  <Plug>(go-run)
+  autocmd FileType go nmap <leader>t  <Plug>(go-test)
+endif
+
+autocmd BufNewFile,BufRead *.{html,htm,tmpl} set filetype=html
+
+" ==========================
+" Window
+" ==========================
+set splitright "Window Split時に新Windowを右に表示
+set splitbelow "Window Split時に新windowを下に表示
+
+" ==========================
 " Split Window
-" ==============================
+" ==========================
 
 nnoremap s <Nop>
 nnoremap sj <C-w>j
@@ -301,5 +261,109 @@ nnoremap sQ :<C-u>bd<CR>
 nnoremap sb :<C-u>Unite buffer_tab -buffer-name=file<CR>
 nnoremap sB :<C-u>Unite buffer -buffer-name=file<CR>
 nnoremap sf :<C-u>Unite file<CR>
+nnoremap <C-n> :bnext<CR>
+nnoremap <C-p> :bprev<CR>
 
+" ==============================
+" Plugin options
+" ==============================
+" -----------
+" vim-airline
+" -----------
+let g:airline_powerline_fonts = 1
+" let g:airline_theme = 'solarized'
+let g:airline_theme = 'tender'
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_enable_branch = 1
 
+" -----------
+" neocomplete
+" -----------
+" Disable AutoComplPop.
+let g:acp_enableAtStartup = 0
+" Use neocomplete.
+let g:neocomplete#enable_at_startup = 1
+" Use smartcase.
+let g:neocomplete#enable_smart_case = 1
+" Set minimum syntax keyword length.
+let g:neocomplete#sources#syntax#min_keyword_length = 1
+" 区切り文字まで補完する
+let g:neocomplete#enable_auto_delimiter = 1
+" 1文字目の入力から補完のポップアップを表示
+let g:neocomplete#auto_completion_start_length = 1
+" バックスペースで補完のポップアップを閉じる
+inoremap <expr><BS> neocomplete#smart_close_popup()."<C-h>"
+
+let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+" Define keyword.
+if !exists('g:neocomplete#keyword_patterns')
+    let g:neocomplete#keyword_patterns = {}
+endif
+let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+" Enable heavy omni completion.
+if !exists('g:neocomplete#sources#omni#input_patterns')
+  let g:neocomplete#sources#omni#input_patterns = {}
+endif
+" connect a dictionary file with filetype.
+let g:neocomplete#sources#dictionary#dictionaries = {
+  \ '_'   : '',
+  \ 'php' : '~/.vim/dict/PHP.dict',
+  \ 'tex' : '~/.vim/plugged/vim-latex/ftplugin/latex-suite/dictionaries/dictionary',
+  \}
+" for vim-R-plugin
+let g:neocomplete#sources#omni#input_patterns.r = '[[:alnum:].\\]\+'
+" Enable omni completion.
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
+inoremap <expr><C-g> neocomplete#undo_completion()
+inoremap <expr><C-l> neocomplete#complete_common_string()
+
+" -----------
+" neosnippets
+" -----------
+let g:neosnippet#snippets_directory='~/.vim/bundle/neosnippet-snippets/snippets/'
+
+" Plugin key-mappings.
+imap <C-k> <Plug>(neosnippet_expand_or_jump)
+smap <C-k> <Plug>(neosnippet_expand_or_jump)
+xmap <C-k> <Plug>(neosnippet_expand_target)
+
+" SuperTab like snippets behavior.
+imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)"
+\: pumvisible() ? "\<C-n>" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)"
+\: "\<TAB>"
+ 
+" For snippet_complete marker.
+if has('conceal')
+  set conceallevel=1 concealcursor=i
+endif
+
+"------------
+" vim-go
+" -----------
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_interfaces = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
+let g:go_fmt_command = "goimports"
+let g:go_snippet_engine = "neosnippet"
+
+" --------------
+" open browser
+" --------------
+au BufRead,BufNewFile *.md set filetype=markdown
+let g:previm_open_cmd = 'open -a "Google Chrome"'
+
+" --------------
+" NERDTree
+" --------------
+nnoremap <silent><C-e> :NERDTreeToggle<CR>

@@ -45,7 +45,7 @@ export JAVA_OPTS='-Dfile.encoding=UTF-8'
 export JAVA_HOME='/Library/Java/JavaVirtualMachines/jdk1.8.0_72.jdk/Contents/Home/'
 export CATALINA_HOME=/usr/local/Cellar/tomcat@8.0/8.0.43/libexec
 
-export FZF_DEFAULT_OPTS="--ansi --select-1 --exit-0 --multi"
+export FZF_DEFAULT_OPTS="--ansi --select-1 --exit-0 --multi  --reverse"
 
 export PYTHONPATH=/Users/shu/workspace/Caffe/python:$PYTHONPATH
 export DYLD_FALLBACK_LIBRARY_PATH=/usr/local/cuda/lib:$HOME/.pyenv/versions/anaconda-2.0.1/lib:/usr/local/lib:/usr/lib
@@ -156,21 +156,28 @@ zshaddhistory() {
 }
 
 # http://d.hatena.ne.jp/kbkbkbkb1/20120429/1335835500
-function peco_select_history() {
-  export LC_CTYPE=C
-  local tac_cmd
-  which gtac &> /dev/null && tac_cmd=gtac || tac_cmd=tac
-  BUFFER=$($tac_cmd ~/.zsh_history | sed 's/^: [0-9]*:[0-9]*;//' \
-    | fzf --query "$LBUFFER")
-  CURSOR=$#BUFFER         # move cursor
-  zle -R -c               # refresh
-  export LC_CTYPE=ja_JP.UTF-8
+# をfzfに変更
+function select_history() {
+#   export LC_CTYPE=C
+#  local tac_cmd
+#  which gtac &> /dev/null && tac_cmd=gtac || tac_cmd=tac
+#  BUFFER=$($tac_cmd ~/.zsh_history | sed 's/^: [0-9]*:[0-9]*;//' \
+#    | fzf --query "$LBUFFER")
+#  CURSOR=$#BUFFER         # move cursor
+#  zle -R -c               # refresh
+#  export LC_CTYPE=ja_JP.UTF-8
+
+  local tac=${commands[tac]:-"tail -r"}
+  BUFFER=$( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | sed 's/ *[0-9]* *//' | eval $tac | awk '!a[$0]++' | fzf +s)
+  CURSOR=$#BUFFER
+  zle clear-screen
+
 }
-zle -N peco_select_history
-bindkey '^R' peco_select_history
+zle -N select_history
+bindkey '^R' select_history
 
 function peco_src() {
-  local src_dir=$(ghq list --full-path | peco --query "$LBUFFER")
+  local src_dir=$(ghq list --full-path | fzf --query "$LBUFFER")
   if [ -n "$src_dir" ]; then
       BUFFER="cd $src_dir"
       zle accept-line
@@ -179,7 +186,9 @@ function peco_src() {
   zle -R -c               # refresh
 }
 zle -N peco_src
-bindkey '^S' peco_src
+# bindkey '^S' peco_srcがなぜか効かないので
+bindkey '^]' peco_src
+
 
 # -------------------------------------
 # Others
