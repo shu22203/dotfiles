@@ -35,7 +35,7 @@ tools:
 	go get -u github.com/nsf/gocode
 
 PWD:=$(shell pwd)
-srcs:=.vimrc .vim .zshrc .zshrc.mine tmux.conf
+srcs:=.vimrc .vim .zshrc .zshrc.mine tmux.conf .tern-project .eslintrc
 
 link:
 	$(foreach src,$(srcs),ln -Fs $(PWD)/$(src) $(HOME)/$(src);)
