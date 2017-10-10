@@ -47,6 +47,7 @@ Plug 'vim-ruby/vim-ruby', {'for': 'ruby'}
 Plug 'tpope/vim-rails', {'for': 'ruby'}
 Plug 'fatih/vim-go', {'for': 'go'}
 Plug 'vim-php/tagbar-phpctags.vim', {'for': 'php'}
+Plug 'nikvdp/ejs-syntax', {'for': 'ejs' }
 Plug 'pangloss/vim-javascript', {'for': ['javascript', 'javascript.jsx']}
 Plug 'maxmellon/vim-jsx-pretty', {'for': ['javascript', 'javascript.jsx']}
 Plug 'ternjs/tern_for_vim', { 'for': ['javascript', 'javascript.jsx'], 'do': 'npm install' }
