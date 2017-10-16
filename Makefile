@@ -39,4 +39,5 @@ srcs:=.vimrc .vim .zshrc .zshrc.mine tmux.conf .tern-project .eslintrc
 
 link:
 	$(foreach src,$(srcs),ln -Fs $(PWD)/$(src) $(HOME)/$(src);)
+	touch .vimback .vimtmp
 

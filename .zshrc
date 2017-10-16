@@ -101,6 +101,8 @@ setopt share_history        # share command history data
 # -------------------------------------
 # Alias
 # -------------------------------------
+# exit
+alias q="exit"
 
 # ls color
 case "${OSTYPE}" in

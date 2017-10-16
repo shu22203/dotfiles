@@ -33,7 +33,7 @@ Plug 'scrooloose/nerdcommenter'
 if has('lua') && (( v:version == 703 && has('patch885')) || (v:version >= 704))
   Plug 'Shougo/neocomplete'
 else 
-  Plug 'Shougo/neocomplecache'
+  Plug 'Shougo/neocomplcache.vim'
 endif
 Plug 'honza/vim-snippets'
 Plug 'Shougo/neosnippet'
@@ -133,8 +133,12 @@ set wrapscan
 let mapleader = ","
 
 " Change key <ESC>
-noremap <C-j> <ESC>
+vnoremap <C-j> <ESC>
 noremap! <C-j> <ESC>
+
+" scroll line in normal node
+nnoremap <C-j> <C-e>
+nnoremap <C-k> <C-y>
 
 " Move by display lime
 nnoremap j gj
