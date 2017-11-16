@@ -7,7 +7,6 @@ call plug#begin()
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'altercation/vim-colors-solarized'
-
 " Markdown
 Plug 'plasticboy/vim-markdown'
 Plug 'tpope/vim-markdown'
@@ -32,7 +31,7 @@ Plug 'scrooloose/nerdcommenter'
 " Complesion snippets
 if has('lua') && (( v:version == 703 && has('patch885')) || (v:version >= 704))
   Plug 'Shougo/neocomplete'
-else 
+else
   Plug 'Shougo/neocomplcache.vim'
 endif
 Plug 'honza/vim-snippets'
@@ -43,6 +42,7 @@ Plug 'mattn/emmet-vim'
 " Programming languages
 Plug 'puppetlabs/puppet-syntax-vim'
 Plug 'gko/vim-coloresque'
+Plug 'udalov/kotlin-vim', {'for': 'kotlin'}
 Plug 'vim-ruby/vim-ruby', {'for': 'ruby'}
 Plug 'tpope/vim-rails', {'for': 'ruby'}
 Plug 'fatih/vim-go', {'for': 'go'}
@@ -325,6 +325,7 @@ let g:airline_enable_branch = 1
 " -----------
 " neocomplete
 " -----------
+if has('lua') && (( v:version == 703 && has('patch885')) || (v:version >= 704))
 " Disable AutoComplPop.
 let g:acp_enableAtStartup = 0
 " Use neocomplete.
@@ -367,6 +368,7 @@ autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
 inoremap <expr><C-g> neocomplete#undo_completion()
 inoremap <expr><C-l> neocomplete#complete_common_string()
+endif
 
 " -----------
 " neosnippets

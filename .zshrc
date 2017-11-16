@@ -39,7 +39,7 @@ export DEFAULT_USER="shu"
 # 重複する要素を自動的に削除
 typeset -U path cdpath fpath manpath
 
-export PATH="/Users/shu/bin:/usr/local/bin:/usr/local/sbin:/Applications/MAMP/Library/bin:/bin:/usr/bin:/sbin:/usr/sbin:/Users/shu/.nvm/v0.11.14/bin:/opt/X11/bin:/usr/texbin:/usr/local/heroku/bin:/usr/local/Cellar/nmap/6.47/bin:usr/local/lib:/usr/local/opt/openssl/include/openssl:/Library/TeX/texbin:/usr/local/Cellar/tomcat@8.0/8.0.41/libexec/bin:/Users/shu/Downloads/RTA/bin:/Users/shu/go/bin:/Applications/Firefox.app/Contents/MacOS"
+export PATH="/Users/shu/bin:/usr/local/bin:/usr/local/sbin:/Applications/MAMP/Library/bin:/bin:/usr/bin:/sbin:/usr/sbin:/Users/shu/.nvm/v0.11.14/bin:/opt/X11/bin:/usr/texbin:/usr/local/heroku/bin:/usr/local/Cellar/nmap/6.47/bin:usr/local/lib:/usr/local/opt/openssl/include/openssl:/Library/TeX/texbin:/usr/local/Cellar/tomcat@8.0/8.0.41/libexec/bin:/Users/shu/go/bin:/Applications/Firefox.app/Contents/MacOS:/usr/local/opt/qt/bin"
 
 
 export JAVA_OPTS='-Dfile.encoding=UTF-8'

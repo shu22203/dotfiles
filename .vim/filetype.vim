@@ -7,6 +7,7 @@ augroup filetypedetect
   au BufRead,BufNewFile *.ejs setfiletype ejs
   au BufRead,BufNewFile *._ejs setfiletype ejs
   au BufRead,BufNewFile *.swift setfiletype swift
+  au BufRead,BufNewFile *.kt setfiletype kotlin
 augroup END
 
 function! s:DetectEjs()
