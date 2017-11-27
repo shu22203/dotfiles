@@ -7,6 +7,7 @@ call plug#begin()
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'altercation/vim-colors-solarized'
+Plug 'w0ng/vim-hybrid'
 " Markdown
 Plug 'plasticboy/vim-markdown'
 Plug 'tpope/vim-markdown'
@@ -100,7 +101,8 @@ else
     let g:solarized_termtrans=1
   endif
 set background=dark
-colorscheme solarized
+" colorscheme solarized
+colorscheme hybrid
 
 let g:markdown_fenced_languages = [
 \  'css',
