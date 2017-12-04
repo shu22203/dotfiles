@@ -103,6 +103,7 @@ else
 set background=dark
 " colorscheme solarized
 colorscheme hybrid
+highlight Normal ctermbg=none
 
 let g:markdown_fenced_languages = [
 \  'css',
