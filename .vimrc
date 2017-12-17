@@ -8,6 +8,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'altercation/vim-colors-solarized'
 Plug 'w0ng/vim-hybrid'
+
 " Markdown
 Plug 'plasticboy/vim-markdown'
 Plug 'tpope/vim-markdown'
@@ -25,6 +26,7 @@ Plug 'hewes/unite-gtags'
 " Utils
 Plug 'jacoborus/tender.vim'
 Plug 'Shougo/unite.vim'
+Plug 'rking/ag.vim'
 Plug 'thinca/vim-quickrun'
 Plug 'Shougo/vimproc'
 Plug 'scrooloose/nerdcommenter'
@@ -121,8 +123,6 @@ let g:markdown_fenced_languages = [
 " ==============================
 " Searching and Moving
 " ==============================
-nnoremap / /\v
-vnoremap / /\v
 set ignorecase
 set smartcase
 set incsearch

@@ -16,9 +16,6 @@ zplug "zplug/zplug", hook-build:"zplug --self-manage"
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
 zplug "zsh-users/zsh-completions"
 zplug "b4b4r07/enhancd", use:init.sh
-zplug "erikw/tmux-powerline"
-zplug "greymd/tmux-xpanes"
-zplug "themes/candy", from:oh-my-zsh, as:theme
 
 # Install plugins if there are plugins that have not been installed
 if ! zplug check --verbose; then
@@ -39,7 +36,7 @@ export DEFAULT_USER="shu"
 # 重複する要素を自動的に削除
 typeset -U path cdpath fpath manpath
 
-export PATH="/Users/shu/bin:/usr/local/bin:/usr/local/sbin:/Applications/MAMP/Library/bin:/bin:/usr/bin:/sbin:/usr/sbin:/Users/shu/.nvm/v0.11.14/bin:/opt/X11/bin:/usr/texbin:/usr/local/heroku/bin:/usr/local/Cellar/nmap/6.47/bin:usr/local/lib:/usr/local/opt/openssl/include/openssl:/Library/TeX/texbin:/usr/local/Cellar/tomcat@8.0/8.0.41/libexec/bin:/Users/shu/go/bin:/Applications/Firefox.app/Contents/MacOS:/usr/local/opt/qt/bin"
+export PATH="$HOME/bin:/usr/local/bin:/usr/local/sbin:/Applications/MAMP/Library/bin:/bin:/usr/bin:/sbin:/usr/sbin:/Users/shu/.nvm/v0.11.14/bin:/opt/X11/bin:/usr/texbin:/usr/local/heroku/bin:/usr/local/Cellar/nmap/6.47/bin:usr/local/lib:/usr/local/opt/openssl/include/openssl:/Library/TeX/texbin:/usr/local/Cellar/tomcat@8.0/8.0.41/libexec/bin:/Users/shu/go/bin:/Applications/Firefox.app/Contents/MacOS:/usr/local/opt/qt/bin"
 
 
 export JAVA_OPTS='-Dfile.encoding=UTF-8'
@@ -48,8 +45,7 @@ export CATALINA_HOME=/usr/local/Cellar/tomcat@8.0/8.0.43/libexec
 
 export FZF_DEFAULT_OPTS="--ansi --select-1 --exit-0 --multi  --reverse"
 
-export PYTHONPATH=/Users/shu/workspace/Caffe/python:$PYTHONPATH
-export DYLD_FALLBACK_LIBRARY_PATH=/usr/local/cuda/lib:$HOME/.pyenv/versions/anaconda-2.0.1/lib:/usr/local/lib:/usr/lib
+export PYENV_ROOT=$HOME/.pyenv
 
 export GOPATH=$HOME/go
 export GOBIN=$GOPATH/bin
@@ -127,6 +123,7 @@ alias psqlstart="postgres -D /usr/local/var/postgres"
 
 # コンフィグ編集
 alias zshconf="vim ~/.zshrc"
+alias zshmine="vim ~/.zshrc.mine"
 alias vimconf="vim ~/.vimrc"
 alias sshconf="vim ~/.ssh/config"
 
