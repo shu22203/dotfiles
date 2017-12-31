@@ -8,6 +8,12 @@ deps:
 	/usr/bin/ruby -e "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
 brew:
+# cask
+	brew cask install java
+	brew cask install xquartz
+	brew cask install docker
+	brew cask isntall firefox
+
 # core
 	brew install wget
 	brew install zplug
@@ -44,7 +50,7 @@ brew:
 	brew install postgresql
 	brew install sqlite
 	brew install mongodb
-	brew install memcachd
+	brew install memcached
 	brew install redis
 
 # others
@@ -52,11 +58,6 @@ brew:
 	brew install wine
 	brew install webp
 	brew install imagemagick@6
-
-# cask
-  brew cask install docker
-	brew cask isntall firefox
-	brew cask isntall xquartz
 
 	brew cleanup
 
@@ -68,5 +69,5 @@ srcs:=.vimrc .vim .zshrc .zshrc.mine .tern-project .eslintrc
 
 link:
 	$(foreach src,$(srcs),ln -Fs $(PWD)/$(src) $(HOME)/$(src);)
-	touch .vimback .vimtmp
+	mkdir $(HOME)/.vimback $(HOME)/.vimtmp
 

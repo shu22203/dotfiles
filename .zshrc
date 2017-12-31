@@ -1,7 +1,9 @@
 # -------------------------------------
 # zplug
 # -------------------------------------
-source ~/.zplug/init.zsh
+export ZPLUG_HOME=/usr/local/opt/zplug
+source $ZPLUG_HOME/init.zsh
+
 #compile if .zwc is old
 if [ ~/.zshrc -nt ~/.zshrc.zwc ]; then
   echo "zcompile .zshrc"
