@@ -1,7 +1,9 @@
 # -------------------------------------
 # zplug
 # -------------------------------------
-export ZPLUG_HOME=/usr/local/opt/zplug
+
+# export ZPLUG_HOME=/usr/local/opt/zplug
+export ZPLUG_HOME=$HOME/.zplug
 source $ZPLUG_HOME/init.zsh
 
 #compile if .zwc is old
@@ -57,7 +59,7 @@ export GOBIN=$GOPATH/bin
 # Environment Variables
 # -------------------------------------
 
-export LANG=ja_JP.UTF-8
+export LANG=en_US.UTF-8
 
 # -------------------------------------
 # zsh options

@@ -12,7 +12,6 @@ brew:
 	brew cask install java
 	brew cask install xquartz
 	brew cask install docker
-	brew cask isntall firefox
 
 # core
 	brew install wget
