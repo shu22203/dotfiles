@@ -24,6 +24,7 @@ brew:
 	brew install ag # the_silver_searcher
 	brew install tree
 	brew install fzf
+	brew install direnv
 
 # Git
 	brew install git

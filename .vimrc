@@ -42,13 +42,16 @@ Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'
 Plug 'mattn/emmet-vim'
 
+Plug 'AtsushiM/search-parent.vim'
+Plug 'AtsushiM/sass-compile.vim'
+
 " Programming languages
 Plug 'puppetlabs/puppet-syntax-vim'
 Plug 'gko/vim-coloresque'
 Plug 'udalov/kotlin-vim', {'for': 'kotlin'}
 Plug 'vim-ruby/vim-ruby', {'for': 'ruby'}
 Plug 'tpope/vim-rails', {'for': 'ruby'}
-Plug 'fatih/vim-go', {'for': 'go'}
+Plug 'fatih/vim-go', {'for': 'go', 'do': ':GoUpdateBinaries'}
 Plug 'vim-php/tagbar-phpctags.vim', {'for': 'php'}
 Plug 'nikvdp/ejs-syntax', {'for': 'ejs' }
 Plug 'pangloss/vim-javascript', {'for': ['javascript', 'javascript.jsx']}
@@ -94,6 +97,10 @@ set wildmode=full:list
 set mouse=a
 set completeopt=menu
 set hidden
+
+" cursor
+let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 
 if has('gui_running')
     set t_Co=16
@@ -446,4 +453,13 @@ nnoremap <silent> <Leader>td  :<C-u>Unite gtags/def:<CR>
 nnoremap <silent> <Leader>tg  :<C-u>Unite gtags/grep:<CR>
 
 
+" ---------------
+" sass-compile
+" ---------------
+let g:sass_compile_auto = 1
+let g:sass_compile_cdloop = 5
+let g:sass_compile_cssdir = ['css']
+let g:sass_compile_file = ['scss', 'sass']
+let g:sass_compile_beforecmd = ''
+let g:sass_compile_aftercmd = ''
 

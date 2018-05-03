@@ -52,7 +52,7 @@ export FZF_DEFAULT_OPTS="--ansi --select-1 --exit-0 --multi  --reverse"
 
 export PYENV_ROOT=$HOME/.pyenv
 
-export GOPATH=$HOME/go
+export GOPATH=$HOME
 export GOBIN=$GOPATH/bin
 
 # -------------------------------------
