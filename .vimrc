@@ -57,6 +57,7 @@ Plug 'nikvdp/ejs-syntax', {'for': 'ejs' }
 Plug 'pangloss/vim-javascript', {'for': ['javascript', 'javascript.jsx']}
 Plug 'maxmellon/vim-jsx-pretty', {'for': ['javascript', 'javascript.jsx']}
 Plug 'ternjs/tern_for_vim', { 'for': ['javascript', 'javascript.jsx'], 'do': 'npm install' }
+Plug 'leafgarland/typescript-vim', {'for': 'typescript'}
 Plug 'othree/html5.vim'
 
 call plug#end()

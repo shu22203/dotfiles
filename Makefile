@@ -32,7 +32,6 @@ brew:
 	brew install hub
 	brew install tig
 
-
 # Programming
 	brew install gcc
 	brew install go
@@ -45,6 +44,7 @@ brew:
 	brew install maven
 	brew install tomcat
 	brew install awscli
+	brew install protobuf
 
 # Database
 	brew install postgresql
@@ -52,11 +52,10 @@ brew:
 	brew install mongodb
 	brew install memcached
 	brew install redis
+	brew install leveldb
 
 # others
 	brew install ctags
-	brew install wine
-	brew install webp
 	brew install imagemagick@6
 
 	brew cleanup
