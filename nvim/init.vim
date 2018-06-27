@@ -1,70 +1,59 @@
+if &compatible
+  set nocompatible
+endif
+
+" reset augroup
+augroup MyAutoCmd
+  autocmd!
+augroup END
+
+" https://qiita.com/kawaz/items/ee725f6214f91337b42b
+let s:cache_home = empty($XDG_CACHE_HOME) ? expand('~/.cache') : $XDG_CACHE_HOME
+let s:dein_dir = s:cache_home . '/dein'
+let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
+
+if !isdirectory(s:dein_repo_dir)
+  call system('git clone https://github.com/Shougo/dein.vim ' . shellescape(s:dein_repo_dir))
+endif
+
+let &runtimepath = s:dein_repo_dir . "," . &runtimepath
+
+let s:toml = fnamemodify(expand('<sfile>'), ':h') . '/dein.toml'
+let s:lazy_toml = fnamemodify(expand('<sfile>'), ':h') . '/dein_lazy.toml'
+
+if dein#load_state(s:dein_dir)
+  call dein#begin(s:dein_dir)
+  call dein#load_toml(s:toml)
+  call dein#load_toml(s:lazy_toml, {'lazy': 1})
+  call dein#end()
+  call dein#save_state()
+endif
+
+if has('vim_starting') && dein#check_install()
+  call dein#install()
+endif
+
+" Required:
+filetype plugin indent on
+syntax enable
+
 " ==============================
 " Plugin
 " ==============================
-call plug#begin()
 
-" Style
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'altercation/vim-colors-solarized'
-Plug 'w0ng/vim-hybrid'
+" " Complesion snippets
+" if has('lua') && (( v:version == 703 && has('patch885')) || (v:version >= 704))
+"   Plug 'Shougo/neocomplete'
+" else
+"   Plug 'Shougo/neocomplcache.vim'
+" endif
+" Plug 'honza/vim-snippets'
+" Plug 'Shougo/neosnippet'
+" Plug 'Shougo/neosnippet-snippets'
+" Plug 'mattn/emmet-vim'
 
-" Markdown
-Plug 'plasticboy/vim-markdown'
-Plug 'tpope/vim-markdown'
-Plug 'kannokanno/previm'
-Plug 'tyru/open-browser.vim'
-
-" Directory tree
-Plug 'scrooloose/nerdtree'
-
-" ctags
-Plug 'szw/vim-tags'
-Plug 'majutsushi/tagbar'
-Plug 'hewes/unite-gtags'
-
-" Utils
-Plug 'jacoborus/tender.vim'
-Plug 'Shougo/unite.vim'
-Plug 'rking/ag.vim'
-Plug 'thinca/vim-quickrun'
-Plug 'Shougo/vimproc'
-Plug 'scrooloose/nerdcommenter'
-Plug 'kana/vim-submode'
-
-" Complesion snippets
-if has('lua') && (( v:version == 703 && has('patch885')) || (v:version >= 704))
-  Plug 'Shougo/neocomplete'
-else
-  Plug 'Shougo/neocomplcache.vim'
-endif
-Plug 'honza/vim-snippets'
-Plug 'Shougo/neosnippet'
-Plug 'Shougo/neosnippet-snippets'
-Plug 'mattn/emmet-vim'
-
-Plug 'AtsushiM/search-parent.vim'
-Plug 'AtsushiM/sass-compile.vim'
-
-" Programming languages
-Plug 'puppetlabs/puppet-syntax-vim'
-Plug 'gko/vim-coloresque'
-Plug 'udalov/kotlin-vim', {'for': 'kotlin'}
-Plug 'vim-ruby/vim-ruby', {'for': 'ruby'}
-Plug 'tpope/vim-rails', {'for': 'ruby'}
-Plug 'fatih/vim-go', {'for': 'go', 'do': ':GoUpdateBinaries'}
-Plug 'vim-php/tagbar-phpctags.vim', {'for': 'php'}
-Plug 'nikvdp/ejs-syntax', {'for': 'ejs' }
-Plug 'pangloss/vim-javascript', {'for': ['javascript', 'javascript.jsx']}
-Plug 'maxmellon/vim-jsx-pretty', {'for': ['javascript', 'javascript.jsx']}
-Plug 'ternjs/tern_for_vim', { 'for': ['javascript', 'javascript.jsx'], 'do': 'npm install' }
-Plug 'leafgarland/typescript-vim', {'for': 'typescript'}
-Plug 'othree/html5.vim'
-
-call plug#end()
-
-filetype plugin indent on
-
+" Plug 'AtsushiM/search-parent.vim'
+" Plug 'AtsushiM/sass-compile.vim'
 
 " ==============================
 " Init
@@ -112,7 +101,6 @@ else
     let g:solarized_termtrans=1
   endif
 set background=dark
-" colorscheme solarized
 colorscheme hybrid
 highlight Normal ctermbg=none
 
@@ -137,7 +125,6 @@ set smartcase
 set incsearch
 set hlsearch
 set wrapscan
-
 
 " ==============================
 " Key Bind
@@ -200,16 +187,15 @@ nnoremap <Leader>5 yyPVr-
 nnoremap <Leader>6 yyPVr^
 nnoremap <Leader>7 yyPVr"
 
-" ==============================
+" ==========================
 " Language
-" ==============================
-set encoding=utf-8
+" ==========================
 set fileformats=unix,dos,mac
 
-" ==============================
+" ==========================
 " Clipboard
-" ==============================
-set clipboard+=autoselect
+" ==========================
+set clipboard+=unnamedplus
 
 " ==========================
 " special Key
@@ -276,16 +262,10 @@ nnoremap sO <C-w>=
 nnoremap sN :<C-u>bn<CR>
 nnoremap sP :<C-u>bp<CR>
 nnoremap st :<C-u>tabnew<CR>
-nnoremap sT :<C-u>Unite tab<CR><ESC>
 nnoremap ss :<C-u>sp<CR>
 nnoremap sv :<C-u>vs<CR>
 nnoremap sq :<C-u>q<CR>
 nnoremap sQ :<C-u>bd<CR>
-nnoremap sB :<C-u>Unite buffer_tab -buffer-name=file<CR>
-nnoremap sb :<C-u>Unite buffer -buffer-name=file<CR>
-nnoremap sf :<C-u>Unite file<CR>
-nnoremap sg :<C-u>Unite grep:. -buffer-name=search-buffer<CR>
-nnoremap scg :<C-u>Unite grep:. -buffer-name=search-buffer<CR><C-R><C-W>
 nnoremap <C-n> :bnext<CR>
 nnoremap <C-p> :bprev<CR>
 
@@ -298,51 +278,9 @@ call submode#map('bufmove', 'n', '', '<', '<C-w><')
 call submode#map('bufmove', 'n', '', '+', '<C-w>+')
 call submode#map('bufmove', 'n', '', '-', '<C-w>-')
 
-
-" ------------
-" Unite
-" ------------
-
-" 大文字小文字を区別しない
-let g:unite_enable_ignore_case = 1
-let g:unite_enable_smart_case = 1
-
-" grep検索結果の再呼出
-nnoremap <silent> <Leader>r  :<C-u>UniteResume search-buffer<CR>
-
-" unite grep に ag(The Silver Searcher) を使う
-if executable('ag')
-  let g:unite_source_grep_command = 'ag'
-  let g:unite_source_grep_default_opts = '--nogroup --nocolor --column'
-  let g:unite_source_grep_recursive_opt = ''
-endif
-
-
 " ==============================
 " Plugin options
 " ==============================
-
-" -----------
-" ctags
-" -----------
-set tags=tags
-
-" -----------
-" tagbar
-" -----------
-let g:tagbar_left = 0
-let g:tagbar_autofocus = 1
-noremap <leader>t :<c-u>TagbarToggle<cr>
-
-" -----------
-" vim-airline
-" -----------
-let g:airline_powerline_fonts = 1
-" let g:airline_theme = 'solarized'
-let g:airline_theme = 'tender'
-let g:airline#extensions#tabline#enabled = 1
-let g:airline_enable_branch = 1
-
 " -----------
 " neocomplete
 " -----------
@@ -415,55 +353,11 @@ if has('conceal')
   set conceallevel=1 concealcursor=i
 endif
 
-"------------
-" vim-go
-" -----------
-let g:go_highlight_functions = 1
-let g:go_highlight_methods = 1
-let g:go_highlight_structs = 1
-let g:go_highlight_interfaces = 1
-let g:go_highlight_operators = 1
-let g:go_highlight_build_constraints = 1
-let g:go_fmt_command = "goimports"
-let g:go_snippet_engine = "neosnippet"
-
-" --------------
-" open browser
-" --------------
-au BufRead,BufNewFile *.md set filetype=markdown
-let g:previm_open_cmd = 'open -a "Google Chrome"'
-
-" --------------
-" NERDTree
-" --------------
-nnoremap <silent><C-e> :NERDTreeToggle<CR>
-
-" --------------
-" NERDcommenter
-" --------------
-" <Leader>c<Space> -> Toggle Comment
-" <Leader>ci -> Invert Comment
-" <Leader>cA -> Append Comment
-let g:NERDSpaceDelims = 1
-let g:NERDShutUp = 1
-let g:NERDDefaultAlign='left'
-
 " --------------
 " vim-indent
 " --------------
 " Auto startup
 let g:indent_guides_enable_on_vim_startup = 1
-
-" --------------
-" gtags
-" --------------
-" カーソル下の呼び出し元一覧を出力
-nnoremap <silent> <Leader>tr  :<C-u>Unite gtags/ref:<CR>
-" カーソル下の定義元を出力
-nnoremap <silent> <Leader>td  :<C-u>Unite gtags/def:<CR>
-" タグファイル内grep
-nnoremap <silent> <Leader>tg  :<C-u>Unite gtags/grep:<CR>
-
 
 " ---------------
 " sass-compile

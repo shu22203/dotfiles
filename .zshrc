@@ -43,6 +43,7 @@ typeset -U path cdpath fpath manpath
 
 export PATH="$HOME/bin:/usr/local/bin:/usr/local/sbin:/Applications/MAMP/Library/bin:/bin:/usr/bin:/sbin:/usr/sbin:/Users/shu/.nvm/v0.11.14/bin:/opt/X11/bin:/usr/texbin:/usr/local/heroku/bin:/usr/local/Cellar/nmap/6.47/bin:usr/local/lib:/usr/local/opt/openssl/include/openssl:/Library/TeX/texbin:/usr/local/Cellar/tomcat@8.0/8.0.41/libexec/bin:/Users/shu/go/bin:/Applications/Firefox.app/Contents/MacOS:/usr/local/opt/qt/bin"
 
+export XDG_CONFIG_HOME=$HOME/dotfiles
 
 export JAVA_OPTS='-Dfile.encoding=UTF-8'
 export JAVA_HOME='/Library/Java/JavaVirtualMachines/jdk1.8.0_72.jdk/Contents/Home/'
@@ -122,6 +123,7 @@ alias lsg="ls | grep "
 
 # vim
 alias vi="vim"
+# alias vim="nvim"
 
 # postgresql起動
 alias psqlstart="postgres -D /usr/local/var/postgres"

@@ -17,6 +17,7 @@ brew:
 	brew install wget
 	brew install zplug
 	brew install vim --with-lua
+	brew install neovim
 	brew install zsh
 	brew install zplug
 	brew install coreutils

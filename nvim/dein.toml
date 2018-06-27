@@ -1,0 +1,132 @@
+[[plugins]]
+repo = 'Shougo/dein.vim'
+
+# =======
+# style
+# =======
+ # カーソル位置のコンテキストに合わせてftを切り替える
+[[plugins]]
+repo = 'osyo-manga/vim-precious'
+depends = ['context_filetype.vim']
+
+ # カーソル位置のコンテキストのftを判定するライブラリ
+[[plugins]]
+repo = 'Shougo/context_filetype.vim'
+
+[[plugins]]
+repo = 'vim-airline/vim-airline'
+hook_add = '''
+let g:airline_powerline_fonts = 1
+let g:airline_theme = 'tender'
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_enable_branch = 1
+'''
+
+[[plugins]]
+repo = 'vim-airline/vim-airline-themes'
+
+[[plugins]]
+repo = 'jacoborus/tender.vim'
+
+[[plugins]]
+repo = 'w0ng/vim-hybrid'
+
+# ==========
+# Markdown
+# ==========
+[[plugins]]
+repo = 'plasticboy/vim-markdown'
+
+[[plugins]]
+repo = 'kannokanno/previm'
+
+[[plugins]]
+repo = 'tyru/open-browser.vim'
+hook_add = '''
+au BufRead,BufNewFile *.md set filetype=markdown
+let g:previm_open_cmd = 'open -a "Google Chrome"'
+'''
+
+# =======
+# tags
+# =======
+[[plugins]]
+# :TagsGenerate!
+repo = 'szw/vim-tags'
+hook_add = '''
+set tags=tags
+let g:vim_tags_project_tags_command = "/usr/local/bin/ctags -R {OPTIONS} {DIRECTORY} 2>/dev/null"
+let g:vim_tags_gems_tags_command = "/usr/local/bin/ctags -R {OPTIONS} `bundle show --paths` 2>/dev/null"
+'''
+
+[[plugins]]
+repo = 'majutsushi/tagbar'
+hook_add = '''
+let g:tagbar_left = 0
+let g:tagbar_autofocus = 1
+noremap <leader>t :<c-u>TagbarToggle<cr>
+'''
+
+[[plugins]]
+repo = 'hewes/unite-gtags'
+hook_add = '''
+" カーソル下の呼び出し元一覧を出力
+nnoremap <silent> <Leader>tr  :<C-u>Unite gtags/ref:<CR>
+" カーソル下の定義元を出力
+nnoremap <silent> <Leader>td  :<C-u>Unite gtags/def:<CR>
+" タグファイル内grep
+nnoremap <silent> <Leader>tg  :<C-u>Unite gtags/grep:<CR>
+'''
+
+# [[plugins]]
+# repo = ''
+# ================
+# Directory Tree
+# ================
+[[plugins]]
+repo = 'scrooloose/nerdtree'
+hook_add = '''
+nnoremap <silent><C-e> :NERDTreeToggle<CR>
+'''
+
+# =======
+# Utils
+# =======
+[[plugins]]
+repo = 'kana/vim-submode'
+
+[[plugins]]
+repo = 'thinca/vim-quickrun'
+
+[[plugins]]
+repo = 'Shougo/vimproc'
+
+[[plugins]]
+repo = 'scrooloose/nerdcommenter'
+hook_add = '''
+" <Leader>c<Space> -> Toggle Comment
+" <Leader>ci -> Invert Comment
+" <Leader>cA -> Append Comment
+let g:NERDSpaceDelims = 1
+let g:NERDShutUp = 1
+let g:NERDDefaultAlign='left'
+'''
+
+# ==========
+# Snippets
+# ==========
+[[plugins]]
+repo = 'Shougo/deoplete.nvim'
+hook_add = '''
+let g:deoplete#enable_at_startup = 1
+" inoremap <expr><CR>  pumvisible() ? deoplete#close_popup() : "<CR>"
+'''
+
+[[plugins]]
+repo = 'Shougo/neosnippet-snippets'
+
+[[plugins]]
+repo = 'puppetlabs/puppet-syntax-vim'
+
+[[plugins]]
+repo = 'gko/vim-coloresque'

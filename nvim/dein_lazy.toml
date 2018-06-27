@@ -1,0 +1,139 @@
+# ======================
+# Denite.nvim
+# ======================
+[[plugins]]
+repo = 'nixprime/cpsm'
+build = 'env PY3=ON ./install.sh'
+
+[[plugins]]
+repo = 'Shougo/denite.nvim'
+on_event = 'BufRead'
+hook_add = '''
+nmap <silent> <C-u><C-b> :<C-u>Denite buffer<CR>
+nmap <silent> <C-u><C-p> :<C-u>Denite file_rec<CR>
+nmap <silent> <C-u><C-g> :<C-u>Denite grep<CR>
+nmap <silent> <C-u><C-]> :<C-u>DeniteCursorWord grep<CR>
+nmap <silent> <C-u><C-r> :<C-u>Denite -resume<CR>
+'''
+
+hook_post_source = '''
+" http://wakame.hatenablog.jp/entry/2017/05/04/144550
+call denite#custom#option('default', 'prompt', '>')
+
+call denite#custom#map('insert', "<C-j>", '<denite:move_to_next_line>')
+call denite#custom#map('insert', "<C-k>", '<denite:move_to_previous_line>')
+
+call denite#custom#map('insert', "<C-t>", '<denite:do_action:tabopen>')
+call denite#custom#map('insert', "<C-v>", '<denite:do_action:vsplit>')
+call denite#custom#map('normal', "v", '<denite:do_action:vsplit>')
+
+call denite#custom#map('insert', 'jj', '<denite:enter_mode:normal>')
+
+if executable('rg')
+  call denite#custom#var('file_rec', 'command',
+        \ ['rg', '--files', '--glob', '!.git'])
+  call denite#custom#var('grep', 'command', ['rg'])
+endif
+
+call denite#custom#source('file_rec', 'matcher', ['matcher_cpsm'])
+
+call denite#custom#source('file_rec', 'matchers', ['matcher_fuzzy','matcher_ignore_globs'])
+call denite#custom#filter('matcher_ignore_globs', 'ignore_globs',
+      \ [
+      \ '.git/', 'build/', '__pycache__/',
+      \ 'images/', '*.o', '*.make',
+      \ '*.min.*', 'node_modules/',
+      \ 'img/', 'fonts/'])
+'''
+
+
+# ======================
+# Complesion, Snippets
+# ======================
+[[plugins]]
+repo = 'Shougo/neosnippet'
+hook_source = '''
+  let g:neosnippet#snippets_directory='~/.vim/bundle/neosnippet-snippets/snippets/'
+
+  " Plugin key-mappings.
+  imap <C-k> <Plug>(neosnippet_expand_or_jump)
+  smap <C-k> <Plug>(neosnippet_expand_or_jump)
+  xmap <C-k> <Plug>(neosnippet_expand_target)
+
+  " SuperTab like snippets behavior.
+  imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+  \ "\<Plug>(neosnippet_expand_or_jump)"
+  \: pumvisible() ? "\<C-n>" : "\<TAB>"
+  smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+  \ "\<Plug>(neosnippet_expand_or_jump)"
+  \: "\<TAB>"
+
+  if has('conceal')
+    set conceallevel=2 concealcursor=niv
+  endif
+'''
+on_i  = 1
+on_ft = ['snippet']
+depends = ['neosnippet-snippets']
+
+# ==========
+# language
+# ==========
+[[plugins]]
+repo = 'cespare/vim-toml'
+on_ft = 'toml'
+
+[[plugins]]
+repo = 'fatih/vim-go'
+on_ft = 'go'
+hook_add = '''
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_interfaces = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
+let g:go_fmt_command = "goimports"
+let g:go_snippet_engine = "neosnippet"
+'''
+
+[[plugins]]
+repo = 'udalov/kotlin-vim'
+on_ft = 'kotlin'
+
+[[plugins]]
+repo = 'vim-ruby/vim-ruby'
+on_ft = 'ruby'
+
+[[plugins]]
+repo = 'tpope/vim-rails'
+on_ft = 'ruby'
+
+[[plugins]]
+repo = 'vim-php/tagbar-phpctags.vim'
+on_ft = 'php'
+
+[[plugins]]
+repo = 'nikvdp/ejs-syntax'
+on_ft = 'ejs'
+
+[[plugins]]
+repo = 'pangloss/vim-javascript'
+on_ft = ['javascript', 'javascript.jsx']
+
+[[plugins]]
+repo = 'maxmellon/vim-jsx-pretty'
+on_ft = ['javascript', 'javascript.jsx']
+
+[[plugins]]
+repo = 'ternjs/tern_for_vim'
+on_ft = ['javascript', 'javascript.jsx']
+do = 'npm install'
+
+[[plugins]]
+repo = 'leafgarland/typescript-vim'
+on_ft = 'typescript'
+
+[[plugins]]
+repo = 'othree/html5.vim'
+on_ft = 'html'
