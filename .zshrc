@@ -122,8 +122,8 @@ esac
 alias lsg="ls | grep "
 
 # vim
-alias vi="vim"
-# alias vim="nvim"
+alias vi="nvim"
+alias vim="nvim"
 
 # postgresql起動
 alias psqlstart="postgres -D /usr/local/var/postgres"
@@ -131,7 +131,7 @@ alias psqlstart="postgres -D /usr/local/var/postgres"
 # コンフィグ編集
 alias zshconf="vim ~/.zshrc"
 alias zshmine="vim ~/.zshrc.mine"
-alias vimconf="vim ~/.vimrc"
+alias vimconf="vim ~/dotfiles/nvim"
 alias sshconf="vim ~/.ssh/config"
 
 # -n 行数表示, -I バイナリファイル無視, svn関係のファイルを無視

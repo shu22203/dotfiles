@@ -49,11 +49,7 @@ syntax enable
 " endif
 " Plug 'honza/vim-snippets'
 " Plug 'Shougo/neosnippet'
-" Plug 'Shougo/neosnippet-snippets'
 " Plug 'mattn/emmet-vim'
-
-" Plug 'AtsushiM/search-parent.vim'
-" Plug 'AtsushiM/sass-compile.vim'
 
 " ==============================
 " Init
@@ -83,7 +79,6 @@ set smartindent
 " others
 set backspace=indent,eol,start
 set wildmenu
-" set wildmode=list:full
 set wildmode=full:list
 set mouse=a
 set completeopt=menu
@@ -158,6 +153,10 @@ noremap <S-k> <S-h>
 noremap <S-l> $
 noremap <ESC><ESC> :noh<CR>
 
+" quickfix
+nnoremap cn :cnext<CR>
+nnoremap cp :cprev<CR>
+
 " Write and quit
 nnoremap <Leader>w :w<CR>
 nnoremap <Leader>wq :wq<CR>
@@ -198,6 +197,11 @@ set fileformats=unix,dos,mac
 set clipboard+=unnamedplus
 
 " ==========================
+" Programming
+" ==========================
+set foldmethod=syntax
+
+" ==========================
 " special Key
 " ==========================
 set list
@@ -220,18 +224,6 @@ set updatetime=500
 " ==========================
 set showcmd
 set laststatus=2
-
-" ==========================
-" File Type
-" ==========================
-if has('autocmd')
-  autocmd BufNewFile,BufRead *.go setlocal tabstop=4 softtabstop=4 shiftwidth=4
-  autocmd FileType go nmap <leader>b  <Plug>(go-build)
-  autocmd FileType go nmap <leader>r  <Plug>(go-run)
-  autocmd FileType go nmap <leader>t  <Plug>(go-test)
-endif
-
-autocmd BufNewFile,BufRead *.{html,htm,tmpl} set filetype=html
 
 " ==========================
 " Window
@@ -358,14 +350,3 @@ endif
 " --------------
 " Auto startup
 let g:indent_guides_enable_on_vim_startup = 1
-
-" ---------------
-" sass-compile
-" ---------------
-let g:sass_compile_auto = 1
-let g:sass_compile_cdloop = 5
-let g:sass_compile_cssdir = ['css']
-let g:sass_compile_file = ['scss', 'sass']
-let g:sass_compile_beforecmd = ''
-let g:sass_compile_aftercmd = ''
-

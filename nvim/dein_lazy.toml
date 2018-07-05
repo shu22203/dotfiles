@@ -87,14 +87,43 @@ on_ft = 'toml'
 repo = 'fatih/vim-go'
 on_ft = 'go'
 hook_add = '''
+autocmd FileType go nmap <leader>b  <Plug>(go-build)
+autocmd FileType go nmap <leader>r  <Plug>(go-run)
+autocmd FileType go nmap <leader>t  <Plug>(go-test)
+
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
 let g:go_highlight_structs = 1
 let g:go_highlight_interfaces = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
+let g:go_list_type = "quickfix"
+let g:go_fold_enable = ['block', 'import', 'varconst', 'package_comment']
 let g:go_fmt_command = "goimports"
 let g:go_snippet_engine = "neosnippet"
+
+" run :GoBuild or :GoTestCompile based on the go file
+function! s:build_go_files()
+  let l:file = expand('%')
+  if l:file =~# '^\f\+_test\.go$'
+    call go#test#Test(0, 1)
+  elseif l:file =~# '^\f\+\.go$'
+    call go#cmd#Build(0)
+  endif
+endfunction
+'''
+
+# ======================
+# Language
+# ======================
+[[plugins]]
+repo = 'w0rp/ale'
+on_event = 'BufRead'
+hook_add = '''
+let g:ale_sign_column_always = 1
+let g:ale_lint_on_save = 1
+let g:ale_completion_enabled = 1
+" let g:ale_open_list = 1
 '''
 
 [[plugins]]

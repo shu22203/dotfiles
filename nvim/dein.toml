@@ -102,6 +102,11 @@ repo = 'thinca/vim-quickrun'
 repo = 'Shougo/vimproc'
 
 [[plugins]]
+# <C-y>, to expansion
+# ex) div>ul>li, p+a+p, ul>li*3, ^, #, ., $, {}
+repo = 'mattn/emmet-vim'
+
+[[plugins]]
 repo = 'scrooloose/nerdcommenter'
 hook_add = '''
 " <Leader>c<Space> -> Toggle Comment
