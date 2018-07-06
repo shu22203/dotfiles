@@ -46,7 +46,6 @@ call denite#custom#filter('matcher_ignore_globs', 'ignore_globs',
       \ 'img/', 'fonts/'])
 '''
 
-
 # ======================
 # Complesion, Snippets
 # ======================
@@ -90,6 +89,20 @@ hook_add = '''
 autocmd FileType go nmap <leader>b  <Plug>(go-build)
 autocmd FileType go nmap <leader>r  <Plug>(go-run)
 autocmd FileType go nmap <leader>t  <Plug>(go-test)
+autocmd FileType go nmap <leader>c  <Plug>(go-coverage-toggle)
+autocmd FileType go nmap <Leader>i  <Plug>(go-info)
+
+" ***.go <-> ***_test.go
+autocmd Filetype go command! -bang A call go#alternate#Switch(<bang>0, 'edit')
+autocmd Filetype go command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
+autocmd Filetype go command! -bang AS call go#alternate#Switch(<bang>0, 'split')
+autocmd Filetype go command! -bang AT call go#alternate#Switch(<bang>0, 'tabe')<Paste>
+
+" <C-t> :GoDefPop 
+" <S-K> :GoDoc
+" :GoRename
+" ]] -> jump to next function
+" [[ -> jump to previous function
 
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
@@ -123,7 +136,11 @@ hook_add = '''
 let g:ale_sign_column_always = 1
 let g:ale_lint_on_save = 1
 let g:ale_completion_enabled = 1
-" let g:ale_open_list = 1
+let g:ale_set_loclist = 0
+let g:ale_set_quickfix = 1
+let g:ale_sign_error = '⨉'
+let g:ale_sign_warning = '⚠'
+let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
 '''
 
 [[plugins]]

@@ -64,9 +64,9 @@ set showmatch
 set wrap
 set whichwrap=b,s,h,l,<,>,[,]
 set cursorline
+set showtabline=2
 
 " tab, indent
-"
 set tabstop=2
 set softtabstop=2
 set shiftwidth=2
@@ -74,7 +74,6 @@ set smarttab
 set expandtab
 set autoindent
 set smartindent
-
 
 " others
 set backspace=indent,eol,start

@@ -4,32 +4,230 @@ repo = 'Shougo/dein.vim'
 # =======
 # style
 # =======
- # カーソル位置のコンテキストに合わせてftを切り替える
 [[plugins]]
 repo = 'osyo-manga/vim-precious'
 depends = ['context_filetype.vim']
 
- # カーソル位置のコンテキストのftを判定するライブラリ
 [[plugins]]
 repo = 'Shougo/context_filetype.vim'
-
-[[plugins]]
-repo = 'vim-airline/vim-airline'
-hook_add = '''
-let g:airline_powerline_fonts = 1
-let g:airline_theme = 'tender'
-let g:airline#extensions#tabline#enabled = 1
-let g:airline_enable_branch = 1
-'''
-
-[[plugins]]
-repo = 'vim-airline/vim-airline-themes'
 
 [[plugins]]
 repo = 'jacoborus/tender.vim'
 
 [[plugins]]
 repo = 'w0ng/vim-hybrid'
+
+[[plugins]]
+repo = 'tpope/vim-fugitive'
+
+[[plugins]]
+repo = 'airblade/vim-gitgutter'
+hook_add = '''
+let g:gitgutter_sign_added = '✚'
+let g:gitgutter_sign_modified = '➜'
+let g:gitgutter_sign_removed = '✘'
+'''
+
+[[plugins]]
+repo = 'ryanoasis/vim-devicons'
+
+[[plugins]]
+repo = 'mgee/lightline-bufferline'
+
+[[plugins]]
+repo = 'itchyny/lightline.vim'
+hook_add = '''
+let g:lightline = {
+      \ 'colorscheme': 'tender',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'gitgutter', 'filename' ] ],
+      \   'right': [ [ 'lineinfo' ], ['percent'], [ 'ale_error', 'ale_warning', 'ale_ok', 'char_code', 'fileformat', 'fileencoding', 'filetype' ] ]
+      \ },
+      \ 'component_function': {
+      \   'fugitive': 'LightLineFugitive',
+      \   'filename': 'LightLineFilename',
+      \   'fileformat': 'LightLineFileformat',
+      \   'filetype': 'LightLineFiletype',
+      \   'fileencoding': 'LightLineFileencoding',
+      \   'mode': 'LightLineMode',
+      \   'char_code': 'LightLineCharCode',
+      \   'gitgutter': 'LightLineGitGutter',
+      \ },
+      \ 'component_function_visible_condition': {
+      \   'mode': 1,
+      \ },
+      \ 'component_expand': {
+      \   'ale_error': 'LightLineAleError',
+      \   'ale_warning': 'LightLineAleWarning',
+      \   'ale_ok': 'LightLineAleOk',
+      \ },
+      \ 'component_type': {
+      \   'ale_error': 'error',
+      \   'ale_waring': 'waring',
+      \   'ale_ok': 'ok',
+      \ },
+      \ 'separator': {'left': '⮀', 'right': '⮂'},
+      \ 'subseparator': {'left': '⮁', 'right': '⮃'}
+      \ }
+
+augroup LightLineOnALE
+  autocmd!
+  autocmd User ALELint call lightline#update()
+augroup END
+
+function! LightLineModified()
+  return &ft =~ 'help' ? '' : &modified ? '' : &modifiable ? '' : '-'
+endfunction
+
+function! LightLineReadonly()
+  return &ft !~? 'help' && &readonly ? '' : ''
+endfunction
+
+function! LightLineFilepath() abort
+  let l:path_string = substitute(expand('%:h'), $HOME, '~', '')
+  if winwidth(0) < 120 && len(l:path_string) > 30
+    let l:path_string = substitute(l:path_string, '\v([^/])[^/]*%(/)@=', '\1', 'g')
+  endif
+  return l:path_string
+endfunction
+
+function! LightLineFilename()
+  let fname = expand('%:t')
+  return fname == 'ControlP' ? g:lightline.ctrlp_item :
+        \ fname == '__Tagbar__' ? g:lightline.fname :
+        \ fname =~ '__Gundo\|NERD_tree' ? '' :
+        \ &ft == 'vimfiler' ? vimfiler#get_status_string() :
+        \ &ft == 'denite' ? LightLineDenite() :
+        \ &ft == 'vimshell' ? vimshell#get_status_string() :
+        \ ('' != LightLineReadonly() ? LightLineReadonly() . ' ' : '') .
+        \ ('' != fname ? LightLineFilepath().' '.fname : '[No Name]') .
+        \ ('' != LightLineModified() ? ' ' . LightLineModified() : '')
+endfunction
+
+" ref. https://gist.github.com/pocari/84c78efa38b5c2fc1f659d1aac3face8
+function! LightLineDenite()
+  let mode_str = substitute(denite#get_status_mode(), "-\\| ", "", "g")
+  call lightline#link(tolower(mode_str[0]))
+  return mode_str
+endfunction
+
+function! LightLineFugitive()
+  try
+    if expand('%:t') !~? 'Tagbar\|Gundo\|NERD' && &ft !~? 'vimfiler' && exists('*fugitive#head')
+      let mark = ' '  " edit here for cool mark
+      let _ = fugitive#head()
+      return strlen(_) ? mark._ : ''
+    endif
+  catch
+  endtry
+  return ''
+endfunction
+
+function! LightLineFileformat()
+  return winwidth(0) > 120 ? &fileformat . (exists('*WebDevIconsGetFileFormatSymbol') ? ' ' . WebDevIconsGetFileFormatSymbol() : '') : ''
+endfunction
+
+function! LightLineFiletype()
+  return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . (exists('*WebDevIconsGetFileTypeSymbol') ? ' ' . WebDevIconsGetFileTypeSymbol() : ''): 'no ft') : ''
+endfunction
+
+function! LightLineFileencoding()
+  return winwidth(0) > 120 ? (strlen(&fenc) ? &fenc : &enc) : ''
+endfunction
+
+function! LightLineMode()
+  let fname = expand('%:t')
+  return fname == '__Tagbar__' ? 'Tagbar' :
+        \ fname == 'ControlP' ? 'CtrlP' :
+        \ fname == '__Gundo__' ? 'Gundo' :
+        \ fname == '__Gundo_Preview__' ? 'Gundo Preview' :
+        \ fname =~ 'NERD_tree' ? 'NERDTree' :
+        \ &ft == 'unite' ? 'Unite' :
+        \ &ft == 'denite' ? 'Denite' :
+        \ &ft == 'vimfiler' ? 'VimFiler' :
+        \ &ft == 'vimshell' ? 'VimShell' :
+        \ winwidth(0) > 60 ? lightline#mode() : ''
+endfunction
+
+function! LightLineCharCode() abort
+  if winwidth(0) <= 120
+    return ''
+  endif
+  " if char on cursor is `Λ̊`, :ascii returns below.
+  " <Λ> 923, 16進数 039b, 8進数 1633 < ̊> 778, 16進数 030a, 8進数 1412
+  redir => l:tmp | silent! ascii | redir END
+  let l:chars = []
+  call substitute(l:tmp, '<.>\s\+\d\+,\s\+\S\+ \x\+,\s\+\S\+ \d\+', '\=add(l:chars, submatch(0))', 'g')
+  if len(l:chars) == 0
+    return ''
+  endif
+  let l:ascii = []
+  for l:c in l:chars
+    let l:m = matchlist(l:c, '<\(.\)>\s\+\d\+,\s\+\S\+ \(\x\+\)')
+    if len(l:m) > 0
+      call add(l:ascii, printf('%s %s', l:m[1], l:m[2]))
+    endif
+  endfor
+  return join(l:ascii, ', ')
+endfunction
+
+function! LightLineGitGutter() abort
+  if ! exists('*GitGutterGetHunkSummary')
+        \ || ! get(g:, 'gitgutter_enabled', 0)
+        \ || winwidth('.') <= 90
+    return ''
+  endif
+  let symbols = [
+        \ g:gitgutter_sign_added . ' ',
+        \ g:gitgutter_sign_modified . ' ',
+        \ g:gitgutter_sign_removed . ' '
+        \ ]
+  let hunks = GitGutterGetHunkSummary()
+  let ret = []
+  for i in [0, 1, 2]
+    if hunks[i] > 0
+      call add(ret, symbols[i] . hunks[i])
+    endif
+  endfor
+  return join(ret, ' ')
+endfunction
+
+function! LightLineAleError() abort
+  return s:ale_string(0)
+endfunction
+
+function! LightLineAleWarning() abort
+  return s:ale_string(1)
+endfunction
+
+function! LightLineAleOk() abort
+  return s:ale_string(2)
+endfunction
+
+function! s:ale_string(mode)
+  if !exists('g:ale_buffer_info')
+    return ''
+  endif
+
+  let l:buffer = bufnr('%')
+  let l:counts = ale#statusline#Count(l:buffer)
+  let [l:error_format, l:warning_format, l:no_errors] = g:ale_statusline_format
+
+  if a:mode == 0 " Error
+    let l:errors = l:counts.error + l:counts.style_error
+    return l:errors ? printf(l:error_format, l:errors) : ''
+  elseif a:mode == 1 " Warning
+    let l:warnings = l:counts.warning + l:counts.style_warning
+    return l:warnings ? printf(l:warning_format, l:warnings) : ''
+  endif
+
+  return l:counts.total == 0? l:no_errors: ''
+endfunction
+
+let g:lightline.tabline          = {'left': [['buffers']], 'right': [['close']]}
+let g:lightline.component_expand = {'buffers': 'lightline#bufferline#buffers'}
+let g:lightline.component_type   = {'buffers': 'tabsel'}
+'''
 
 # ==========
 # Markdown
