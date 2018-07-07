@@ -5,6 +5,9 @@ repo = 'Shougo/dein.vim'
 # style
 # =======
 [[plugins]]
+repo = 'ryanoasis/vim-devicons'
+
+[[plugins]]
 repo = 'osyo-manga/vim-precious'
 depends = ['context_filetype.vim']
 
@@ -29,9 +32,6 @@ let g:gitgutter_sign_removed = '✘'
 '''
 
 [[plugins]]
-repo = 'ryanoasis/vim-devicons'
-
-[[plugins]]
 repo = 'mgee/lightline-bufferline'
 
 [[plugins]]
@@ -39,8 +39,9 @@ repo = 'itchyny/lightline.vim'
 hook_add = '''
 let g:lightline = {
       \ 'colorscheme': 'tender',
+      \ 'tabline': {'left': [['buffers']], 'right': [['close']]},
       \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'gitgutter', 'filename' ] ],
+      \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ] ],
       \   'right': [ [ 'lineinfo' ], ['percent'], [ 'ale_error', 'ale_warning', 'ale_ok', 'char_code', 'fileformat', 'fileencoding', 'filetype' ] ]
       \ },
       \ 'component_function': {
@@ -51,7 +52,6 @@ let g:lightline = {
       \   'fileencoding': 'LightLineFileencoding',
       \   'mode': 'LightLineMode',
       \   'char_code': 'LightLineCharCode',
-      \   'gitgutter': 'LightLineGitGutter',
       \ },
       \ 'component_function_visible_condition': {
       \   'mode': 1,
@@ -60,11 +60,13 @@ let g:lightline = {
       \   'ale_error': 'LightLineAleError',
       \   'ale_warning': 'LightLineAleWarning',
       \   'ale_ok': 'LightLineAleOk',
+      \   'buffers': 'lightline#bufferline#buffers',
       \ },
       \ 'component_type': {
       \   'ale_error': 'error',
       \   'ale_waring': 'waring',
       \   'ale_ok': 'ok',
+      \   'buffers': 'tabsel',
       \ },
       \ 'separator': {'left': '⮀', 'right': '⮂'},
       \ 'subseparator': {'left': '⮁', 'right': '⮃'}
@@ -171,27 +173,6 @@ function! LightLineCharCode() abort
   return join(l:ascii, ', ')
 endfunction
 
-function! LightLineGitGutter() abort
-  if ! exists('*GitGutterGetHunkSummary')
-        \ || ! get(g:, 'gitgutter_enabled', 0)
-        \ || winwidth('.') <= 90
-    return ''
-  endif
-  let symbols = [
-        \ g:gitgutter_sign_added . ' ',
-        \ g:gitgutter_sign_modified . ' ',
-        \ g:gitgutter_sign_removed . ' '
-        \ ]
-  let hunks = GitGutterGetHunkSummary()
-  let ret = []
-  for i in [0, 1, 2]
-    if hunks[i] > 0
-      call add(ret, symbols[i] . hunks[i])
-    endif
-  endfor
-  return join(ret, ' ')
-endfunction
-
 function! LightLineAleError() abort
   return s:ale_string(0)
 endfunction
@@ -223,10 +204,6 @@ function! s:ale_string(mode)
 
   return l:counts.total == 0? l:no_errors: ''
 endfunction
-
-let g:lightline.tabline          = {'left': [['buffers']], 'right': [['close']]}
-let g:lightline.component_expand = {'buffers': 'lightline#bufferline#buffers'}
-let g:lightline.component_type   = {'buffers': 'tabsel'}
 '''
 
 # ==========
