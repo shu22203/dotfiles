@@ -1,6 +1,7 @@
 # gitignore setting
 *~
 .DS_Store
+hub
 TAGS
 .vim/.netrwhist
 .vim/bundle
