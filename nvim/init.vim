@@ -8,7 +8,7 @@ augroup MyAutoCmd
 augroup END
 
 " https://qiita.com/kawaz/items/ee725f6214f91337b42b
-let s:cache_home = empty($XDG_CACHE_HOME) ? expand('~/.cache') : $XDG_CACHE_HOME
+let s:cache_home = empty($XDG_CACHE_HOME) ? expand('~/.nvim') : $XDG_CACHE_HOME
 let s:dein_dir = s:cache_home . '/dein'
 let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
 
@@ -34,8 +34,8 @@ if has('vim_starting') && dein#check_install()
 endif
 
 " Required:
-filetype plugin indent on
 syntax enable
+filetype plugin indent on
 
 " ==============================
 " Plugin
@@ -97,19 +97,6 @@ else
 set background=dark
 colorscheme hybrid
 highlight Normal ctermbg=none
-
-let g:markdown_fenced_languages = [
-\  'css',
-\  'go',
-\  'javascript',
-\  'js=javascript',
-\  'json=javascript',
-\  'ruby',
-\  'sass',
-\  'xml',
-\  'erlang',
-\  'sql',
-\]
 
 " ==============================
 " Searching and Moving

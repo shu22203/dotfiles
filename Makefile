@@ -16,16 +16,15 @@ brew:
 # core
 	brew install wget
 	brew install zplug
-	brew install vim --with-lua
-	brew install neovim
 	brew install zsh
-	brew install zplug
+	brew install neovim
 	brew install coreutils
 	brew install nkf
-	brew install ag # the_silver_searcher
 	brew install tree
 	brew install fzf
 	brew install direnv
+  brew install ripgrep
+  brew install jq
 
 # Git
 	brew install git
@@ -65,7 +64,7 @@ tools:
 	go get -u github.com/nsf/gocode
 
 PWD:=$(shell pwd)
-srcs:=.vimrc .vim .zshrc .zshrc.mine .tern-project .eslintrc
+srcs:=.vimrc .vim .zshrc .zshrc.mine .tern-project .eslintrc .tigrc
 
 link:
 	$(foreach src,$(srcs),ln -Fs $(PWD)/$(src) $(HOME)/$(src);)
