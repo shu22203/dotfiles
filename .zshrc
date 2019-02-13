@@ -41,13 +41,17 @@ export DEFAULT_USER="shu"
 # 重複する要素を自動的に削除
 typeset -U path cdpath fpath manpath
 
-export PATH="$HOME/bin:/usr/local/bin:/usr/local/sbin:/Applications/MAMP/Library/bin:/bin:/usr/bin:/sbin:/usr/sbin:/Users/shu/.nvm/v0.11.14/bin:/opt/X11/bin:/usr/texbin:/usr/local/heroku/bin:/usr/local/Cellar/nmap/6.47/bin:usr/local/lib:/usr/local/opt/openssl/include/openssl:/Library/TeX/texbin:/usr/local/Cellar/tomcat@8.0/8.0.41/libexec/bin:/Users/shu/go/bin:/Applications/Firefox.app/Contents/MacOS:/usr/local/opt/qt/bin"
+export PATH="$HOME/bin:/Applications/MAMP/Library/bin:/usr/local/bin:/usr/local/sbin:/usr/sbin:/usr/bin:/sbin:/bin"
+
+export ANYENV_DEFINITION_ROOT=$HOME/.anyenv/anyenv-install
+eval "$(anyenv init -)"
 
 export XDG_CONFIG_HOME=$HOME/dotfiles
 
+export HOMEBREW_INSTALL_CLEANUP=1
+
 export JAVA_OPTS='-Dfile.encoding=UTF-8'
-export JAVA_HOME='/Library/Java/JavaVirtualMachines/jdk1.8.0_72.jdk/Contents/Home/'
-export CATALINA_HOME=/usr/local/Cellar/tomcat@8.0/8.0.43/libexec
+export JAVA_HOME=`/usr/libexec/java_home -v 1.8`
 
 export FZF_DEFAULT_OPTS="--ansi --select-1 --exit-0 --multi  --reverse"
 

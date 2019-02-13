@@ -9,8 +9,6 @@ deps:
 
 brew:
 # cask
-	brew cask install java
-	brew cask install xquartz
 	brew cask install docker
 
 # core
@@ -23,8 +21,8 @@ brew:
 	brew install tree
 	brew install fzf
 	brew install direnv
-  brew install ripgrep
-  brew install jq
+	brew install ripgrep
+	brew install jq
 
 # Git
 	brew install git
@@ -33,25 +31,24 @@ brew:
 	brew install tig
 
 # Programming
+  brew install anyenv
 	brew install gcc
-	brew install go
 	brew install glide
-	brew install node
-	brew install rbenv
-	brew install ruby-build
-	brew install pyenv
 	brew install haskell-stack
+	brew install scala
+	brew install sbt
 	brew install maven
-	brew install tomcat
 	brew install awscli
 	brew install protobuf
 
 # Database
+	brew install mysql
 	brew install postgresql
 	brew install sqlite
 	brew install mongodb
 	brew install memcached
 	brew install redis
+	brew install cassandra
 	brew install leveldb
 
 # others

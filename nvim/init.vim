@@ -95,6 +95,7 @@ else
     let g:solarized_termtrans=1
   endif
 set background=dark
+let g:hybrid_use_iTerm_colors = 1
 colorscheme hybrid
 highlight Normal ctermbg=none
 
