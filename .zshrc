@@ -41,7 +41,7 @@ export DEFAULT_USER="shu"
 # 重複する要素を自動的に削除
 typeset -U path cdpath fpath manpath
 
-export PATH="$HOME/bin:/Applications/MAMP/Library/bin:/usr/local/bin:/usr/local/sbin:/usr/sbin:/usr/bin:/sbin:/bin"
+export PATH="$HOME/bin:/usr/local/bin:/usr/local/sbin:/usr/sbin:/usr/bin:/sbin:/bin"
 
 export ANYENV_DEFINITION_ROOT=$HOME/.anyenv/anyenv-install
 eval "$(anyenv init -)"
@@ -54,8 +54,6 @@ export JAVA_OPTS='-Dfile.encoding=UTF-8'
 export JAVA_HOME=`/usr/libexec/java_home -v 1.8`
 
 export FZF_DEFAULT_OPTS="--ansi --select-1 --exit-0 --multi  --reverse"
-
-export PYENV_ROOT=$HOME/.pyenv
 
 export GOPATH=$HOME
 export GOBIN=$GOPATH/bin

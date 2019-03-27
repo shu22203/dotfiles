@@ -4,6 +4,7 @@
 hub
 TAGS
 direnv
+configstore
 .vim/.netrwhist
 .vim/bundle
 .vim/bundle/*
