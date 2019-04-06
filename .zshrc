@@ -2,7 +2,6 @@
 # zplug
 # -------------------------------------
 
-# export ZPLUG_HOME=/usr/local/opt/zplug
 export ZPLUG_HOME=$HOME/.zplug
 source $ZPLUG_HOME/init.zsh
 
@@ -20,7 +19,7 @@ zplug "zplug/zplug", hook-build:"zplug --self-manage"
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
 zplug "zsh-users/zsh-completions"
 zplug "b4b4r07/enhancd", use:init.sh
-zplug "themes/candy", from:oh-my-zsh, as:theme
+zplug "themes/candy-modified", from:oh-my-zsh, as:theme
 
 # Install plugins if there are plugins that have not been installed
 if ! zplug check --verbose; then

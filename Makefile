@@ -31,7 +31,7 @@ brew:
 	brew install tig
 
 # Programming
-  brew install anyenv
+	brew install anyenv
 	brew install gcc
 	brew install glide
 	brew install haskell-stack
@@ -61,7 +61,7 @@ tools:
 	go get -u github.com/nsf/gocode
 
 PWD:=$(shell pwd)
-srcs:=.vimrc .vim .zshrc .zshrc.mine .tern-project .eslintrc .tigrc
+srcs:=.vimrc .vim .zshrc .zshrc.mine .tigrc .latexmkrc .gitconfig .gitignore_global
 
 link:
 	$(foreach src,$(srcs),ln -Fs $(PWD)/$(src) $(HOME)/$(src);)

@@ -38,20 +38,6 @@ syntax enable
 filetype plugin indent on
 
 " ==============================
-" Plugin
-" ==============================
-
-" " Complesion snippets
-" if has('lua') && (( v:version == 703 && has('patch885')) || (v:version >= 704))
-"   Plug 'Shougo/neocomplete'
-" else
-"   Plug 'Shougo/neocomplcache.vim'
-" endif
-" Plug 'honza/vim-snippets'
-" Plug 'Shougo/neosnippet'
-" Plug 'mattn/emmet-vim'
-
-" ==============================
 " Init
 " ==============================
 set modelines=5

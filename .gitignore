@@ -1,7 +1,6 @@
 # gitignore setting
-*~
-.DS_Store
 hub
+deps
 TAGS
 direnv
 configstore
@@ -11,4 +10,3 @@ configstore
 .vim/plugged
 .vim/plugged/*
 .zshrc.mine
-.gitconfig
