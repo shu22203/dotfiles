@@ -58,7 +58,7 @@ brew:
 	brew cleanup
 
 tools:
-	go get -u github.com/nsf/gocode
+	go get -u golang.org/x/tools/cmd/gopls
 
 PWD:=$(shell pwd)
 srcs:=.vimrc .vim .zshrc .zshrc.mine .tigrc .latexmkrc .gitconfig .gitignore_global

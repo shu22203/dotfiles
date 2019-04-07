@@ -82,13 +82,15 @@ depends = ['neosnippet-snippets']
 repo = 'w0rp/ale'
 on_event = 'BufRead'
 hook_add = '''
-let g:ale_sign_column_always = 0
-let g:ale_lint_on_save = 1
+let g:ale_completion_enabled = 1
 let g:ale_fix_on_save = 0
 let g:ale_fixers = {'ruby': ['rubocop']}
-let g:ale_completion_enabled = 1
+let g:ale_lint_on_flietype_changed = 0
+let g:ale_lint_on_save = 1
+let g:ale_lint_delay = 500
 let g:ale_set_loclist = 0
 let g:ale_set_quickfix = 1
+let g:ale_sign_column_always = 0
 let g:ale_sign_error = '✖︎'
 let g:ale_sign_warning = '⚠'
 let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
@@ -136,6 +138,9 @@ let g:go_fmt_command = "goimports"
 let g:go_fmt_experimental = 1
 let g:go_snippet_engine = "neosnippet"
 
+let g:go_def_mapping_enabled = 0
+let g:go_doc_keywordprg_enabled = 0
+
 " run :GoBuild or :GoTestCompile based on the go file
 function! s:build_go_files()
   let l:file = expand('%')
@@ -182,7 +187,32 @@ do = 'npm install'
 
 [[plugins]]
 repo = 'posva/vim-vue'
-on_ft = ['javascript', 'javascript.vue']
+on_ft = ['vue']
+hook_add = '''
+set iskeyword+=$
+set iskeyword+=-
+autocmd MyAutoCmd FileType vue syntax sync fromstart
+let g:ft = ''
+function! NERDCommenter_before()
+  if &ft == 'vue'
+    let g:ft = 'vue'
+    let stack = synstack(line('.'), col('.'))
+    if len(stack) > 0
+      let syn = synIDattr((stack)[0], 'name')
+      if len(syn) > 0
+        exe 'setf ' . substitute(tolower(syn), '^vue_', '', '')
+      endif
+    endif
+  endif
+endfunction
+function! NERDCommenter_after()
+  if g:ft == 'vue'
+    setf vue
+    let g:ft = ''
+  endif
+endfunction
+'''
+
 
 [[plugins]]
 repo = 'leafgarland/typescript-vim'

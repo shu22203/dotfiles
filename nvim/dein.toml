@@ -2,6 +2,51 @@
 repo = 'Shougo/dein.vim'
 
 # =======
+# LSP
+# =======
+# [[plugins]]
+# repo = 'autozimu/LanguageClient-neovim'
+# build = 'bash install.sh'
+# rev = 'next'
+# hook_add = '''
+# let g:LanguageClient_serverCommands = {
+#     \ 'go': ['gopls'],
+#     \ 'vue': ['vls'],
+#     \ 'javascript': ['vls'],
+#     \ 'rust': ['rls'],
+#     \ }
+
+# nnoremap <F5> :call LanguageClient_contextMenu()<CR>
+# " Or map each action separately
+# nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+# nnoremap <silent> <C-]> :call LanguageClient#textDocument_definition()<CR>
+# nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+# nnoremap <silent> <F3> :call LanguageClient#textDocument_formatting()<CR>
+# '''
+
+[[plugins]]
+repo = 'prabirshrestha/async.vim'
+
+[[plugins]]
+repo = 'prabirshrestha/vim-lsp'
+hook_add = '''
+if executable('gopls')
+  augroup LspGo
+    au!
+    autocmd User lsp_setup call lsp#register_server({
+        \ 'name': 'go-lang',
+        \ 'cmd': {server_info->['bingo', '-mode', 'stdio']},
+        \ 'whitelist': ['go'],
+        \ })
+    autocmd FileType go setlocal omnifunc=lsp#complete
+    autocmd FileType go nmap <buffer> gd <plug>(lsp-definition)
+    autocmd FileType go nmap <buffer> ,n <plug>(lsp-next-error)
+    autocmd FileType go nmap <buffer> ,p <plug>(lsp-previous-error)
+  augroup END
+endif
+'''
+
+# =======
 # style
 # =======
 [[plugins]]
@@ -20,9 +65,12 @@ repo = 'jacoborus/tender.vim'
 [[plugins]]
 repo = 'w0ng/vim-hybrid'
 
+# Git wrappper
+# ex) :Gdiff, :Gstatus, :Gblame
 [[plugins]]
 repo = 'tpope/vim-fugitive'
 
+# Show git diff
 [[plugins]]
 repo = 'airblade/vim-gitgutter'
 hook_add = '''
@@ -296,8 +344,11 @@ let g:NERDDefaultAlign='left'
 repo = 'Shougo/deoplete.nvim'
 hook_add = '''
 let g:deoplete#enable_at_startup = 1
-" inoremap <expr><CR>  pumvisible() ? deoplete#close_popup() : "<CR>"
+inoremap <expr><CR>  pumvisible() ? deoplete#close_popup() : "<CR>"
 '''
+
+# [[plugins]]
+# repo = 'Shougo/neosnippet.vim'
 
 [[plugins]]
 repo = 'Shougo/neosnippet-snippets'

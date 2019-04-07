@@ -64,7 +64,6 @@ set smartindent
 " others
 set backspace=indent,eol,start
 set wildmenu
-set wildmode=full:list
 set mouse=a
 set completeopt=menu
 set hidden
@@ -121,8 +120,6 @@ nnoremap <S-CR> O<ESC>
 
 " Move to top and end
 noremap <S-h> ^
-noremap <S-j> <S-l>
-noremap <S-k> <S-h>
 noremap <S-l> $
 noremap <ESC><ESC> :noh<CR>
 
