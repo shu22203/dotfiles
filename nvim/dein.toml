@@ -35,7 +35,7 @@ if executable('gopls')
     au!
     autocmd User lsp_setup call lsp#register_server({
         \ 'name': 'go-lang',
-        \ 'cmd': {server_info->['bingo', '-mode', 'stdio']},
+        \ 'cmd': {server_info->['gopls', '-mode', 'stdio']},
         \ 'whitelist': ['go'],
         \ })
     autocmd FileType go setlocal omnifunc=lsp#complete
@@ -87,84 +87,62 @@ repo = 'itchyny/lightline.vim'
 hook_add = '''
 let g:lightline = {
       \ 'colorscheme': 'tender',
-      \ 'tabline': {'left': [['buffers']], 'right': [['close']]},
+      \ 'tabline': {
+      \   'left': [
+      \             ['bufferinfo'],
+      \             ['separator'],
+      \             ['bufferbefore', 'buffercurrent', 'bufferafter'],
+      \           ],
+      \   'right': [
+      \             ['close']
+      \           ]
+      \ },
       \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ] ],
-      \   'right': [ [ 'lineinfo' ], ['percent'], [ 'ale_error', 'ale_warning', 'ale_ok', 'char_code', 'fileformat', 'fileencoding', 'filetype' ] ]
+      \   'left': [
+      \             ['mode', 'paste' ],
+      \             ['fugitive', 'readonly', 'filename', 'modified']
+      \           ],
+      \   'right': [
+      \             ['linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok'],
+      \             ['lineinfo'],
+      \             ['percent'],
+      \             ['fileformat', 'fileencoding', 'filetype', 'charvaluehex']
+      \            ]
       \ },
       \ 'component_function': {
+      \   'bufferinfo': 'lightline#buffer#bufferinfo',
       \   'fugitive': 'LightLineFugitive',
-      \   'filename': 'LightLineFilename',
-      \   'fileformat': 'LightLineFileformat',
-      \   'filetype': 'LightLineFiletype',
-      \   'fileencoding': 'LightLineFileencoding',
-      \   'mode': 'LightLineMode',
-      \   'char_code': 'LightLineCharCode',
-      \ },
-      \ 'component_function_visible_condition': {
-      \   'mode': 1,
+      \   'ale': 'LightLineAle',
       \ },
       \ 'component_expand': {
-      \   'ale_error': 'LightLineAleError',
-      \   'ale_warning': 'LightLineAleWarning',
-      \   'ale_ok': 'LightLineAleOk',
-      \   'buffers': 'lightline#bufferline#buffers',
+      \   'buffercurrent': 'lightline#buffer#buffercurrent',
+      \   'bufferbefore': 'lightline#buffer#bufferbefore',
+      \   'bufferafter': 'lightline#buffer#bufferafter',
+      \   'linter_checking': 'lightline#ale#checking',
+      \   'linter_warnings': 'lightline#ale#warnings',
+      \   'linter_errors': 'lightline#ale#errors',
+      \   'linter_ok': 'lightline#ale#ok',
       \ },
       \ 'component_type': {
-      \   'ale_error': 'error',
-      \   'ale_waring': 'waring',
-      \   'ale_ok': 'ok',
-      \   'buffers': 'tabsel',
+      \   'buffercurrent': 'tabsel',
+      \   'bufferbefore': 'raw',
+      \   'bufferafter': 'raw',
+      \   'linter_checking': 'left',
+      \   'linter_warnings': 'warning',
+      \   'linter_errors': 'error',
+      \   'linter_ok': 'left',
       \ },
-      \ 'separator': {'left': '⮀', 'right': '⮂'},
-      \ 'subseparator': {'left': '⮁', 'right': '⮃'}
+      \ 'component': {
+      \   'separator': '',
+      \ },
+      \ 'separator': {'left': "\ue0b0", 'right': "\ue0b2"},
+      \ 'subseparator': {'left': "\ue0b1", 'right': "\ue0b3"}
       \ }
-
-augroup LightLineOnALE
-  autocmd!
-  autocmd User ALELint call lightline#update()
-augroup END
-
-function! LightLineModified()
-  return &ft =~ 'help' ? '' : &modified ? '' : &modifiable ? '' : '-'
-endfunction
-
-function! LightLineReadonly()
-  return &ft !~? 'help' && &readonly ? '' : ''
-endfunction
-
-function! LightLineFilepath() abort
-  let l:path_string = substitute(expand('%:h'), $HOME, '~', '')
-  if winwidth(0) < 120 && len(l:path_string) > 30
-    let l:path_string = substitute(l:path_string, '\v([^/])[^/]*%(/)@=', '\1', 'g')
-  endif
-  return l:path_string
-endfunction
-
-function! LightLineFilename()
-  let fname = expand('%:t')
-  return fname == 'ControlP' ? g:lightline.ctrlp_item :
-        \ fname == '__Tagbar__' ? g:lightline.fname :
-        \ fname =~ '__Gundo\|NERD_tree' ? '' :
-        \ &ft == 'vimfiler' ? vimfiler#get_status_string() :
-        \ &ft == 'denite' ? LightLineDenite() :
-        \ &ft == 'vimshell' ? vimshell#get_status_string() :
-        \ ('' != LightLineReadonly() ? LightLineReadonly() . ' ' : '') .
-        \ ('' != fname ? LightLineFilepath().' '.fname : '[No Name]') .
-        \ ('' != LightLineModified() ? ' ' . LightLineModified() : '')
-endfunction
-
-" ref. https://gist.github.com/pocari/84c78efa38b5c2fc1f659d1aac3face8
-function! LightLineDenite()
-  let mode_str = substitute(denite#get_status_mode(), "-\\| ", "", "g")
-  call lightline#link(tolower(mode_str[0]))
-  return mode_str
-endfunction
 
 function! LightLineFugitive()
   try
     if expand('%:t') !~? 'Tagbar\|Gundo\|NERD' && &ft !~? 'vimfiler' && exists('*fugitive#head')
-      let mark = ' '  " edit here for cool mark
+      let mark = "\ue0a0 "
       let _ = fugitive#head()
       return strlen(_) ? mark._ : ''
     endif
@@ -172,86 +150,44 @@ function! LightLineFugitive()
   endtry
   return ''
 endfunction
+'''
 
-function! LightLineFileformat()
-  return winwidth(0) > 120 ? &fileformat . (exists('*WebDevIconsGetFileFormatSymbol') ? ' ' . WebDevIconsGetFileFormatSymbol() : '') : ''
-endfunction
+[[plugins]]
+repo = 'maximbaz/lightline-ale'
+depends = ['lightline.vim', 'ale']
+hook_add = '''
+let g:lightline#ale#indicator_checking = " \uf110 "
+let g:lightline#ale#indicator_warnings = "\uf071 "
+let g:lightline#ale#indicator_errors = "\uf05e "
+let g:lightline#ale#indicator_ok = "\uf00c "
+'''
 
-function! LightLineFiletype()
-  return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . (exists('*WebDevIconsGetFileTypeSymbol') ? ' ' . WebDevIconsGetFileTypeSymbol() : ''): 'no ft') : ''
-endfunction
+[[plugins]]
+repo = 'taohexxx/lightline-buffer'
+depends = ['lightline.vim', 'ale']
+hook_add = '''
+let g:lightline_buffer_logo = "\ue62b "
+let g:lightline_buffer_readonly_icon = "\ufafa"
+let g:lightline_buffer_modified_icon = "\ufac1"
+let g:lightline_buffer_git_icon = "\ue0a0 "
+let g:lightline_buffer_ellipsis_icon = '..'
+let g:lightline_buffer_expand_left_icon = '◀ '
+let g:lightline_buffer_expand_right_icon = ' ▶'
+let g:lightline_buffer_active_buffer_left_icon = ''
+let g:lightline_buffer_active_buffer_right_icon = ''
+let g:lightline_buffer_separator_icon = '  '
 
-function! LightLineFileencoding()
-  return winwidth(0) > 120 ? (strlen(&fenc) ? &fenc : &enc) : ''
-endfunction
+" lightline-buffer function settings
+let g:lightline_buffer_show_bufnr = 0
+let g:lightline_buffer_rotate = 0
+let g:lightline_buffer_fname_mod = ':t'
+let g:lightline_buffer_excludes = ['vimfiler']
 
-function! LightLineMode()
-  let fname = expand('%:t')
-  return fname == '__Tagbar__' ? 'Tagbar' :
-        \ fname == 'ControlP' ? 'CtrlP' :
-        \ fname == '__Gundo__' ? 'Gundo' :
-        \ fname == '__Gundo_Preview__' ? 'Gundo Preview' :
-        \ fname =~ 'NERD_tree' ? 'NERDTree' :
-        \ &ft == 'unite' ? 'Unite' :
-        \ &ft == 'denite' ? 'Denite' :
-        \ &ft == 'vimfiler' ? 'VimFiler' :
-        \ &ft == 'vimshell' ? 'VimShell' :
-        \ winwidth(0) > 60 ? lightline#mode() : ''
-endfunction
-
-function! LightLineCharCode() abort
-  if winwidth(0) <= 120
-    return ''
-  endif
-  " if char on cursor is `Λ̊`, :ascii returns below.
-  " <Λ> 923, 16進数 039b, 8進数 1633 < ̊> 778, 16進数 030a, 8進数 1412
-  redir => l:tmp | silent! ascii | redir END
-  let l:chars = []
-  call substitute(l:tmp, '<.>\s\+\d\+,\s\+\S\+ \x\+,\s\+\S\+ \d\+', '\=add(l:chars, submatch(0))', 'g')
-  if len(l:chars) == 0
-    return ''
-  endif
-  let l:ascii = []
-  for l:c in l:chars
-    let l:m = matchlist(l:c, '<\(.\)>\s\+\d\+,\s\+\S\+ \(\x\+\)')
-    if len(l:m) > 0
-      call add(l:ascii, printf('%s %s', l:m[1], l:m[2]))
-    endif
-  endfor
-  return join(l:ascii, ', ')
-endfunction
-
-function! LightLineAleError() abort
-  return s:ale_string(0)
-endfunction
-
-function! LightLineAleWarning() abort
-  return s:ale_string(1)
-endfunction
-
-function! LightLineAleOk() abort
-  return s:ale_string(2)
-endfunction
-
-function! s:ale_string(mode)
-  if !exists('g:ale_buffer_info')
-    return ''
-  endif
-
-  let l:buffer = bufnr('%')
-  let l:counts = ale#statusline#Count(l:buffer)
-  let [l:error_format, l:warning_format, l:no_errors] = g:ale_statusline_format
-
-  if a:mode == 0 " Error
-    let l:errors = l:counts.error + l:counts.style_error
-    return l:errors ? printf(l:error_format, l:errors) : ''
-  elseif a:mode == 1 " Warning
-    let l:warnings = l:counts.warning + l:counts.style_warning
-    return l:warnings ? printf(l:warning_format, l:warnings) : ''
-  endif
-
-  return l:counts.total == 0? l:no_errors: ''
-endfunction
+let g:lightline_buffer_maxflen = 30
+let g:lightline_buffer_maxfextlen = 3
+let g:lightline_buffer_minflen = 16
+let g:lightline_buffer_minfextlen = 3
+let g:lightline_buffer_reservelen = 20
 '''
 
 # ==========
