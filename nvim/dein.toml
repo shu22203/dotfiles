@@ -1,6 +1,39 @@
 [[plugins]]
 repo = 'Shougo/dein.vim'
 
+[[plugins]]
+repo = 'junegunn/fzf'
+build = './install --all'
+merged = 0
+
+[[plugins]]
+repo = 'junegunn/fzf.vim'
+depends = 'fzf'
+hook_add = '''
+let mapleader = "\<Space>"
+
+nnoremap <Leader>b :Buffers<CR>
+nnoremap <Leader>c :Commands<CR>
+nnoremap <Leader>g :GFiles<CR>
+nnoremap <Leader>r :Rg<CR>
+nnoremap <Leader>k :bd<CR>
+fun! FzfOmniFiles()
+  let is_git = system('git status')
+  if v:shell_error
+    :Files
+  else
+    :GitFiles
+  endif
+endfun
+nnoremap <Leader>f :call FzfOmniFiles()<CR>
+" command! FZFMru call fzf#run({
+" \  'source':  v:oldfiles,
+" \  'sink':    'e',
+" \  'options': '-m -x +s',
+" \  'down':    '40%'})
+" nnoremap <Leader>r :FZFMru<CR>
+'''
+
 # =======
 # LSP
 # =======
@@ -14,7 +47,7 @@ if executable('gopls')
   augroup LspGo
     au!
     autocmd User lsp_setup call lsp#register_server({
-        \ 'name': 'go-lang',
+        \ 'name': 'glpls',
         \ 'cmd': {server_info->['gopls', '-mode', 'stdio']},
         \ 'whitelist': ['go'],
         \ })
@@ -24,6 +57,47 @@ if executable('gopls')
     autocmd FileType go nmap <buffer> <Leader>p <plug>(lsp-previous-error)
   augroup END
 endif
+
+if executable('solargraph')
+    " gem install solargraph
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'solargraph',
+        \ 'cmd': {server_info->[&shell, &shellcmdflag, 'solargraph stdio']},
+        \ 'initialization_options': {"diagnostics": "true"},
+        \ 'whitelist': ['ruby'],
+        \ })
+  endif
+
+if executable('pyls')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'pyls',
+        \ 'cmd': {server_info->['pyls']},
+        \ 'whitelist': ['python'],
+        \ })
+  endif
+
+if executable('java') && filereadable(expand('~/lsp/eclipse.jdt.ls/plugins/org.eclipse.equinox.launcher_1.5.300.v20190213-1655.jar'))
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'eclipse.jdt.ls',
+        \ 'cmd': {server_info->[
+        \     'java',
+        \     '-Declipse.application=org.eclipse.jdt.ls.core.id1',
+        \     '-Dosgi.bundles.defaultStartLevel=4',
+        \     '-Declipse.product=org.eclipse.jdt.ls.core.product',
+        \     '-Dlog.level=ALL',
+        \     '-noverify',
+        \     '-Dfile.encoding=UTF-8',
+        \     '-Xmx1G',
+        \     '-jar',
+        \     expand('~/lsp/eclipse.jdt.ls/plugins/org.eclipse.equinox.launcher_1.5.300.v20190213-1655.jar'),
+        \     '-configuration',
+        \     expand('~/lsp/eclipse.jdt.ls/config_win'),
+        \     '-data',
+        \     getcwd()
+        \ ]},
+        \ 'whitelist': ['java'],
+        \ })
+  endif
 '''
 
 # =======
@@ -46,9 +120,12 @@ repo = 'jacoborus/tender.vim'
 repo = 'w0ng/vim-hybrid'
 
 # Git wrappper
-# ex) :Gdiff, :Gstatus, :Gblame
+# ex) :Gdiff, :Gstatus, :Gblame, :Gbrowse
 [[plugins]]
 repo = 'tpope/vim-fugitive'
+
+[[plugins]]
+repo = 'tpope/vim-rhubarb'
 
 # Show git diff
 [[plugins]]

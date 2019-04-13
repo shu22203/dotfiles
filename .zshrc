@@ -206,3 +206,5 @@ bindkey '^]' peco_src
 function chpwd() { ls }
 
 source ~/.zshrc.mine
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

@@ -1,49 +1,36 @@
 # ======================
-# Denite.nvim
+# fzf
 # ======================
 [[plugins]]
-repo = 'nixprime/cpsm'
-build = 'env PY3=ON ./install.sh'
+repo = 'junegunn/fzf'
+on_event = 'BufRead'
+build = './install --all'
+merged = 0
 
 [[plugins]]
-repo = 'Shougo/denite.nvim'
-on_event = 'BufRead'
+repo = 'junegunn/fzf.vim'
+depends = 'fzf'
+
 hook_add = '''
-nmap <silent> <C-u><C-b> :<C-u>Denite buffer -mode=normal<CR>
-nmap <silent> <C-u><C-p> :<C-u>Denite file_rec<CR>
-nmap <silent> <C-u><C-g> :<C-u>Denite grep<CR>
-nmap <silent> <C-u><C-]> :<C-u>DeniteCursorWord grep<CR>
-nmap <silent> <C-u><C-r> :<C-u>Denite -resume<CR>
-'''
+nmap <Space> [fzf]
 
-hook_post_source = '''
-" http://wakame.hatenablog.jp/entry/2017/05/04/144550
-call denite#custom#option('default', 'prompt', '>')
+nnoremap [fzf]b :Buffers<CR>
+nnoremap [fzf]c :Commands<CR>
+nnoremap [fzf]g :GFiles<CR>
+command! FZFMru call fzf#run({
+\  'source':  v:oldfiles,
+\  'sink':    'e',
+\  'options': '-m -x +s',
+\  'down':    '40%'})
+nnoremap [fzf]f :FZFMru<CR>
 
-call denite#custom#map('insert', "<C-j>", '<denite:move_to_next_line>')
-call denite#custom#map('insert', "<C-k>", '<denite:move_to_previous_line>')
-
-call denite#custom#map('insert', "<C-t>", '<denite:do_action:tabopen>')
-call denite#custom#map('insert', "<C-v>", '<denite:do_action:vsplit>')
-call denite#custom#map('normal', "v", '<denite:do_action:vsplit>')
-
-call denite#custom#map('insert', 'jj', '<denite:enter_mode:normal>')
-
-if executable('rg')
-  call denite#custom#var('file_rec', 'command',
-        \ ['rg', '--files', '--glob', '!.git'])
-  call denite#custom#var('grep', 'command', ['rg'])
-endif
-
-call denite#custom#source('file_rec', 'matcher', ['matcher_cpsm'])
-
-call denite#custom#source('file_rec', 'matchers', ['matcher_fuzzy','matcher_ignore_globs'])
-call denite#custom#filter('matcher_ignore_globs', 'ignore_globs',
-      \ [
-      \ '.git/', 'build/', '__pycache__/',
-      \ 'images/', '*.o', '*.make',
-      \ '*.min.*', 'node_modules/',
-      \ 'img/', 'fonts/'])
+command! -bang -nargs=* Rg
+\ call fzf#vim#grep(
+\ 'rg --column --line-number --hidden --ignore-case --no-heading --color=always '.shellescape(<q-args>), 1,
+\ <bang>0 ? fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'up:60%')
+\ : fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:50%:hidden', '?'),
+\ <bang>0)
+nnoremap [fzf]r :Rg<CR>
 '''
 
 # ======================

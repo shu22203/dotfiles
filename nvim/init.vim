@@ -81,7 +81,7 @@ else
   endif
 set background=dark
 let g:hybrid_use_iTerm_colors = 1
-colorscheme hybrid
+colorscheme tender
 highlight Normal ctermbg=none
 
 " ==============================
@@ -101,6 +101,8 @@ let mapleader = ","
 " Change key <ESC>
 vnoremap <C-j> <ESC>
 noremap! <C-j> <ESC>
+tnoremap <Esc> <C-\><C-n>
+tnoremap <C-j> <C-\><C-n>
 
 " scroll line in normal node
 nnoremap <C-j> <C-e>
@@ -129,6 +131,7 @@ nnoremap cp :cprev<CR>
 
 " Write and quit
 nnoremap <Leader>w :w<CR>
+nnoremap <Leader>q :q<CR>
 nnoremap <Leader>wq :wq<CR>
 nnoremap <Leader>qq :q!<CR>
 
