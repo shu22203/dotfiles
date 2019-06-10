@@ -1,39 +1,6 @@
 [[plugins]]
 repo = 'Shougo/dein.vim'
 
-[[plugins]]
-repo = 'junegunn/fzf'
-build = './install --all'
-merged = 0
-
-[[plugins]]
-repo = 'junegunn/fzf.vim'
-depends = 'fzf'
-hook_add = '''
-let mapleader = "\<Space>"
-
-nnoremap <Leader>b :Buffers<CR>
-nnoremap <Leader>c :Commands<CR>
-nnoremap <Leader>g :GFiles<CR>
-nnoremap <Leader>r :Rg<CR>
-nnoremap <Leader>k :bd<CR>
-fun! FzfOmniFiles()
-  let is_git = system('git status')
-  if v:shell_error
-    :Files
-  else
-    :GitFiles
-  endif
-endfun
-nnoremap <Leader>f :call FzfOmniFiles()<CR>
-" command! FZFMru call fzf#run({
-" \  'source':  v:oldfiles,
-" \  'sink':    'e',
-" \  'options': '-m -x +s',
-" \  'down':    '40%'})
-" nnoremap <Leader>r :FZFMru<CR>
-'''
-
 # =======
 # LSP
 # =======
@@ -43,6 +10,10 @@ repo = 'prabirshrestha/async.vim'
 [[plugins]]
 repo = 'prabirshrestha/vim-lsp'
 hook_add = '''
+let g:lsp_log_verbose = 1
+let g:lsp_log_file = expand('~/.cache/tmp/vim-lsp.log')
+let g:lsp_diagnostics_enabled = 0
+
 if executable('gopls')
   augroup LspGo
     au!
@@ -98,6 +69,21 @@ if executable('java') && filereadable(expand('~/lsp/eclipse.jdt.ls/plugins/org.e
         \ 'whitelist': ['java'],
         \ })
   endif
+
+function! s:configure_lsp() abort
+  setlocal omnifunc=lsp#complete   " オムニ補完を有効化
+  " LSP用にマッピング
+  nnoremap <buffer> <C-]> :<C-u>LspDefinition<CR>
+  nnoremap <buffer> gd :<C-u>LspDefinition<CR>
+  nnoremap <buffer> gD :<C-u>LspReferences<CR>
+  nnoremap <buffer> gs :<C-u>LspDocumentSymbol<CR>
+  nnoremap <buffer> gS :<C-u>LspWorkspaceSymbol<CR>
+  nnoremap <buffer> gQ :<C-u>LspDocumentFormat<CR>
+  vnoremap <buffer> gQ :LspDocumentRangeFormat<CR>
+  nnoremap <buffer> K :<C-u>LspHover<CR>
+  nnoremap <buffer> <F1> :<C-u>LspImplementation<CR>
+  nnoremap <buffer> <F2> :<C-u>LspRename<CR>
+endfunction
 '''
 
 # =======

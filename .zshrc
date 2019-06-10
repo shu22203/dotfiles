@@ -40,7 +40,7 @@ export DEFAULT_USER="shu"
 # 重複する要素を自動的に削除
 typeset -U path cdpath fpath manpath
 
-export PATH="$HOME/bin:/usr/local/bin:/usr/local/sbin:/usr/sbin:/usr/bin:/sbin:/bin"
+export PATH="$HOME/bin:/usr/local/bin:/usr/local/sbin:/usr/sbin:/usr/bin:/sbin:/bin:$HOME/.local/bin"
 
 export ANYENV_DEFINITION_ROOT=$HOME/.anyenv/anyenv-install
 eval "$(anyenv init -)"
@@ -120,11 +120,32 @@ case "${OSTYPE}" in
    alias la='ls -la --color'
    ;;
 esac
+
+if [[ -x `which colordiff` ]]; then
+  alias diff='colordiff -u'
+else
+  alias diff='diff -u'
+fi
+
 alias lsg="ls | grep "
 
 # vim
 alias vi="nvim"
 alias vim="nvim"
+
+# BSD -> GNU commands
+if [[ -x `which gxargs` ]]; then
+  alias xargs='gxargs'
+fi
+if [[ -x `which gdate` ]]; then
+  alias date='gdate'
+fi
+if [[ -x `which gsed` ]]; then
+  alias sed='gsed'
+fi
+if [[ -x `which gseq` ]]; then
+  alias seq='gseq'
+fi
 
 # postgresql起動
 alias psqlstart="postgres -D /usr/local/var/postgres"

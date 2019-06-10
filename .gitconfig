@@ -46,7 +46,9 @@
     lp = log --oneline -n 20 -p
     ls = log --stat --abbrev-commit -n 1 # display previous log
     m = merge --no-ff
+		openpr = "!f() { hub browse -- `git log --merges --oneline --reverse --ancestry-path $1...master | grep 'Merge pull request #' | head -n 1 | cut -f5 -d' ' | sed -e 's%#%pull/%'`; }; f"
     p = pull --prune
     s = status --short --branch
+    showpr = !"f() { git log --merges --oneline --reverse --ancestry-path $1...master | grep 'Merge pull request #' | head -n 1; }; f"
     st = status
     su = submodule update

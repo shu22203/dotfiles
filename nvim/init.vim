@@ -7,6 +7,11 @@ augroup MyAutoCmd
   autocmd!
 augroup END
 
+augroup QuickFixCmd
+  autocmd!
+  autocmd QuickFixCmdPost *grep* cwindow
+augroup END
+
 " https://qiita.com/kawaz/items/ee725f6214f91337b42b
 let s:cache_home = empty($XDG_CACHE_HOME) ? expand('~/.nvim') : $XDG_CACHE_HOME
 let s:dein_dir = s:cache_home . '/dein'
@@ -116,10 +121,6 @@ nnoremap gk k
 nnoremap <Down> gj
 nnoremap <Up> gk
 
-" <Enter> always mean inserting line
-nnoremap <CR> o<ESC>
-nnoremap <S-CR> O<ESC>
-
 " Move to top and end
 noremap <S-h> ^
 noremap <S-l> $
@@ -146,6 +147,9 @@ noremap * *zz
 noremap # #zz
 noremap g* g*zz
 noremap g# g#zz
+noremap <C-]> <C-]>zz
+noremap <C-i> <C-i>zz
+noremap <C-o> <C-o>zz
 
 " <C-p> to paste mode
 set pastetoggle=<Leader>p
@@ -231,8 +235,8 @@ nnoremap ss :<C-u>sp<CR>
 nnoremap sv :<C-u>vs<CR>
 nnoremap sq :<C-u>q<CR>
 nnoremap sQ :<C-u>bd<CR>
-nnoremap <C-n> :bnext<CR>
-nnoremap <C-p> :bprev<CR>
+nnoremap <C-l> :bnext<CR>
+nnoremap <C-h> :bprev<CR>
 
 call submode#enter_with('bufmove', 'n', '', 's>', '<C-w>>')
 call submode#enter_with('bufmove', 'n', '', 's<', '<C-w><')
