@@ -159,6 +159,11 @@ alias sshconf="vim ~/.ssh/config"
 # -n 行数表示, -I バイナリファイル無視, svn関係のファイルを無視
 alias grep="grep --color -n -I --exclude='*.svn-*' --exclude='entries' --exclude='*/cache/*'"
 
+# Git
+# 個別のエイリアスは.gitconfignに記載
+alias g="git"
+alias hb='hub browse $(ghq list | fzf | cut -d "/" -f 2,3)'
+
 # -------------------------------------
 # Key Binds
 # -------------------------------------
