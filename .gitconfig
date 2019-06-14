@@ -28,6 +28,7 @@
     ba = branch -a
     bs = branch -vv
     ci = commit
+    cim = commit -m
     co = checkout
     cob = checkout -b
     d = diff
