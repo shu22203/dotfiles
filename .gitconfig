@@ -24,17 +24,15 @@
     # http://oli.jp/2012/git-powerup/
     # http://blog.blindgaenger.net/advanced_git_aliases.html
     alias = !git config --list | grep 'alias\\.' | sed 's/alias\\.\\([^=]*\\)=\\(.*\\)/\\1\\\t => \\2/' | sort
-    b = branch -a
-    br = browse-remote
+    b = branch
+    ba = branch -a
     bs = branch -vv
     ci = commit
     co = checkout
-    current-branch = rev-parse --abbrev-ref HEAD
+    cob = checkout -b
     d = diff
     dc = diff --cached
     delete-merged-branches = !git branch --merged | grep -v \\* | xargs -I % git branch -d %
-    di = diff
-    dic = diff --cached
     f = fetch --prune
     fetch-pulls = fetch origin +refs/pull/*:refs/remotes/pull/*
     fs = !git f && git su
@@ -51,4 +49,3 @@
     s = status --short --branch
     showpr = !"f() { git log --merges --oneline --reverse --ancestry-path $1...master | grep 'Merge pull request #' | head -n 1; }; f"
     st = status
-    su = submodule update
