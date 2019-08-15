@@ -113,14 +113,16 @@ fi
 # ls color
 case "${OSTYPE}" in
   darwin*)
-  alias ls="lsd -a"
-  alias ll="lsd -l"
-  alias la="lsd -al"
+  alias l="ls -l"
+  alias la="ls -a"
+  alias lla="ls -la"
+  alias lt="ls --tree"
     ;;
   linux*)
-  alias ls='ls -a --color'
-  alias ll='ls -l --color'
-  alias la='ls -la --color'
+  alias l='ls -l --color'
+  alias la='ls -a --color'
+  alias lla='ls -la --color'
+  alias lt='ls --tree --color'
    ;;
 esac
 
