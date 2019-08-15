@@ -106,18 +106,21 @@ setopt share_history        # share command history data
 # -------------------------------------
 # exit
 alias q="exit"
+if [[ -x `which lsd` ]]; then
+  alias ls="lsd"
+fi
 
 # ls color
 case "${OSTYPE}" in
   darwin*)
-    alias ls="ls -aG"
-    alias ll="ls -lG"
-    alias la="ls -alG"
+  alias ls="lsd -a"
+  alias ll="lsd -l"
+  alias la="lsd -al"
     ;;
   linux*)
-   alias ls='ls -a --color'
-   alias ll='ls -l --color'
-   alias la='ls -la --color'
+  alias ls='ls -a --color'
+  alias ll='ls -l --color'
+  alias la='ls -la --color'
    ;;
 esac
 

@@ -136,6 +136,9 @@ nnoremap <Leader>q :q<CR>
 nnoremap <Leader>wq :wq<CR>
 nnoremap <Leader>qq :q!<CR>
 
+" Not yunk on pasting with visual mode
+vnoremap p "_dP
+
 " autocomp palenthesis
 inoremap {<Enter> {}<Left><CR><ESC><S-o>
 inoremap (<Enter> ()<Left><CR><ESC><S-o>
