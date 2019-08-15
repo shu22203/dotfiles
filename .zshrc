@@ -133,6 +133,9 @@ alias lsg="ls | grep "
 alias vi="nvim"
 alias vim="nvim"
 
+# Terraform
+alias tf="terraform"
+
 # BSD -> GNU commands
 if [[ -x `which gxargs` ]]; then
   alias xargs='gxargs'
