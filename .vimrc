@@ -7,7 +7,6 @@ call plug#begin()
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'altercation/vim-colors-solarized'
-Plug 'w0ng/vim-hybrid'
 
 " Markdown
 Plug 'plasticboy/vim-markdown'
@@ -30,7 +29,6 @@ Plug 'rking/ag.vim'
 Plug 'thinca/vim-quickrun'
 Plug 'Shougo/vimproc'
 Plug 'scrooloose/nerdcommenter'
-Plug 'kana/vim-submode'
 
 " Complesion snippets
 if has('lua') && (( v:version == 703 && has('patch885')) || (v:version >= 704))
@@ -113,7 +111,6 @@ else
   endif
 set background=dark
 " colorscheme solarized
-colorscheme hybrid
 highlight Normal ctermbg=none
 
 let g:markdown_fenced_languages = [
@@ -288,15 +285,6 @@ nnoremap sg :<C-u>Unite grep:. -buffer-name=search-buffer<CR>
 nnoremap scg :<C-u>Unite grep:. -buffer-name=search-buffer<CR><C-R><C-W>
 nnoremap <C-n> :bnext<CR>
 nnoremap <C-p> :bprev<CR>
-
-call submode#enter_with('bufmove', 'n', '', 's>', '<C-w>>')
-call submode#enter_with('bufmove', 'n', '', 's<', '<C-w><')
-call submode#enter_with('bufmove', 'n', '', 's+', '<C-w>+')
-call submode#enter_with('bufmove', 'n', '', 's-', '<C-w>-')
-call submode#map('bufmove', 'n', '', '>', '<C-w>>')
-call submode#map('bufmove', 'n', '', '<', '<C-w><')
-call submode#map('bufmove', 'n', '', '+', '<C-w>+')
-call submode#map('bufmove', 'n', '', '-', '<C-w>-')
 
 
 " ------------
