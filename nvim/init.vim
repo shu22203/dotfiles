@@ -216,31 +216,36 @@ set splitbelow "Window Split時に新windowを下に表示
 " ==========================
 
 nnoremap s <Nop>
+" Move window
 nnoremap sj <C-w>j
 nnoremap sk <C-w>k
 nnoremap sl <C-w>l
 nnoremap sh <C-w>h
+nnoremap sw <C-w>w
+" Move window itself
 nnoremap sJ <C-w>J
 nnoremap sK <C-w>K
 nnoremap sL <C-w>L
 nnoremap sH <C-w>H
-nnoremap sn gt
-nnoremap sp gT
+" Rotate window (horizontal, vertical)
 nnoremap sr <C-w>r
+" Fix window size
 nnoremap s= <C-w>=
-nnoremap sw <C-w>w
-nnoremap so <C-w>_<C-w>|
 nnoremap sO <C-w>=
-nnoremap sN :<C-u>bn<CR>
-nnoremap sP :<C-u>bp<CR>
-nnoremap st :<C-u>tabnew<CR>
+" Maximize vertical size
+nnoremap so <C-w>_<C-w>|
+" Separate window horizontal/vertical
 nnoremap ss :<C-u>sp<CR>
 nnoremap sv :<C-u>vs<CR>
-nnoremap sq :<C-u>q<CR>
-nnoremap sQ :<C-u>bd<CR>
+" Delete buffer
+nnoremap sq :<C-u>bd<CR>
+" Delete window
+nnoremap sQ :<C-u>q<CR>
+" Move buffer
 nnoremap <C-l> :bnext<CR>
 nnoremap <C-h> :bprev<CR>
 
+" Resize window
 call submode#enter_with('bufmove', 'n', '', 's>', '<C-w>>')
 call submode#enter_with('bufmove', 'n', '', 's<', '<C-w><')
 call submode#enter_with('bufmove', 'n', '', 's+', '<C-w>+')
