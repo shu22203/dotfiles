@@ -103,6 +103,10 @@ set wrapscan
 " ==============================
 let mapleader = ","
 
+" Swap colon and semicolon
+nnoremap : ;
+nnoremap ; :
+
 " Change key <ESC>
 vnoremap <C-j> <ESC>
 noremap! <C-j> <ESC>

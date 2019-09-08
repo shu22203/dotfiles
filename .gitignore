@@ -9,4 +9,5 @@ configstore
 .vim/bundle/*
 .vim/plugged
 .vim/plugged/*
+.idea/
 .zshrc.mine
