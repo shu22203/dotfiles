@@ -57,8 +57,8 @@
     "z c": "editor:fold-current-row",
     "z o": "editor:unfold-current-row",
     "G": "vim-mode:move-to-line",
-    "H": "vim-mode:move-to-top-of-screen",
-    "L": "vim-mode:move-to-bottom-of-screen",
+    "H": "vim-mode:move-to-first-character-of-line",
+    "L": "vim-mode:move-to-last-character-of-line",
     "M": "vim-mode:move-to-middle-of-screen",
 
     "d": "vim-mode:delete",
@@ -141,10 +141,12 @@
     "ctrl-w": "vim-mode:delete-to-beginning-of-word"
   },
   ".CodeMirror.vim-mode.replace-mode textarea": {
-    "escape": "vim-mode:exit-insert-mode"
+    "escape": "vim-mode:exit-insert-mode",
+    "ctrl-j": "vim-mode:exit-insert-mode"
   },
   ".CodeMirror.vim-mode.visual-mode textarea": {
     "escape": "vim-mode:exit-visual-mode",
+    "ctrl-j": "vim-mode:exit-visual-mode",
     "\"": "vim-mode:register-prefix",
     "I": "vim-mode:insert-at-start-of-target",
     "A": "vim-mode:insert-at-end-of-target",
@@ -158,4 +160,3 @@
     "S": "vim-mode:substitute-line-visual"
   }
 }
-
