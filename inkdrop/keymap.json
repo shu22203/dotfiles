@@ -89,7 +89,7 @@
     "F": "vim-mode:find-backwards",
     "t": "vim-mode:till",
     "T": "vim-mode:till-backwards",
-    ";": "vim-mode:repeat-find",
+    ":": "vim-mode:repeat-find",
     ",": "vim-mode:repeat-find-reverse",
 
     "/": "vim-mode:search",
@@ -101,7 +101,7 @@
 
     "%": "vim-mode:bracket-matching-motion",
 
-    ":": "vim-mode:ex-command"
+    ";": "vim-mode:ex-command"
   },
   ".CodeMirror.vim-mode:not(.insert-mode) textarea": {
     "i": "vim-mode:text-object-manipulation-inner",
