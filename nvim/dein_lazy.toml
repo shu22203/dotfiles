@@ -35,8 +35,7 @@ nnoremap [fzf]r :Rg<CR>
 
 let g:fzf_action = {
     \ 'ctrl-q': 'wall | bdelete',
-    \ 'ctrl-t': 'tab split',
-    \ 'ctrl-x': 'split',
+    \ 'ctrl-s': 'split',
     \ 'ctrl-v': 'vsplit' }
 
 '''

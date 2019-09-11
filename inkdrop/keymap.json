@@ -5,7 +5,8 @@
   ".CodeMirror.vim-mode": {
   },
   ".CodeMirror.vim-mode.normal-mode textarea": {
-    "escape": "vim-mode:reset-normal-mode"
+    "escape": "vim-mode:reset-normal-mode",
+    "ctrl-j": "vim-mode:reset-normal-mode"
   },
   ".CodeMirror.vim-mode:not(.insert-mode):not(.key-buffering) textarea": {
     "h": "vim-mode:move-left",
@@ -57,8 +58,8 @@
     "z c": "editor:fold-current-row",
     "z o": "editor:unfold-current-row",
     "G": "vim-mode:move-to-line",
-    "H": "vim-mode:move-to-top-of-screen",
-    "L": "vim-mode:move-to-bottom-of-screen",
+    "H": "vim-mode:move-to-first-character-of-line",
+    "L": "vim-mode:move-to-last-character-of-line",
     "M": "vim-mode:move-to-middle-of-screen",
 
     "d": "vim-mode:delete",
@@ -89,7 +90,7 @@
     "F": "vim-mode:find-backwards",
     "t": "vim-mode:till",
     "T": "vim-mode:till-backwards",
-    ";": "vim-mode:repeat-find",
+    ":": "vim-mode:repeat-find",
     ",": "vim-mode:repeat-find-reverse",
 
     "/": "vim-mode:search",
@@ -101,7 +102,7 @@
 
     "%": "vim-mode:bracket-matching-motion",
 
-    ":": "vim-mode:ex-command"
+    ";": "vim-mode:ex-command"
   },
   ".CodeMirror.vim-mode:not(.insert-mode) textarea": {
     "i": "vim-mode:text-object-manipulation-inner",
@@ -141,10 +142,12 @@
     "ctrl-w": "vim-mode:delete-to-beginning-of-word"
   },
   ".CodeMirror.vim-mode.replace-mode textarea": {
-    "escape": "vim-mode:exit-insert-mode"
+    "escape": "vim-mode:exit-insert-mode",
+    "ctrl-j": "vim-mode:exit-insert-mode"
   },
   ".CodeMirror.vim-mode.visual-mode textarea": {
     "escape": "vim-mode:exit-visual-mode",
+    "ctrl-j": "vim-mode:exit-visual-mode",
     "\"": "vim-mode:register-prefix",
     "I": "vim-mode:insert-at-start-of-target",
     "A": "vim-mode:insert-at-end-of-target",
