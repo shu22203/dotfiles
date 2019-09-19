@@ -1,0 +1,96 @@
+" ==============================
+" Init
+" ==============================
+set showmode
+set modelines=5
+set clipboard=unnamed
+
+colorscheme hybrid
+
+" <Enter> always mean inserting line
+nnoremap <CR> o<ESC>
+nnoremap <S-CR> O<ESC>
+
+" ==============================
+" Searching and Moving
+" ==============================
+set ignorecase
+set smartcase
+set incsearch
+set hlsearch
+set wrapscan
+
+" ==============================
+" Key Bind
+" ==============================
+imap <C-j> <Esc>
+vmap <C-j> <Esc>
+cmap <C-j> <Esc>
+
+" Swap colon
+nnoremap ; :
+nnoremap : ;
+
+" Move tab
+nnoremap <C-l> gt
+nnoremap <C-h> gT
+
+" Move by display lime
+nnoremap j gj
+nnoremap k gk
+nnoremap gj j
+nnoremap gk k
+nnoremap <Down> gj
+nnoremap <Up> gk
+
+" Move to top and end
+noremap <S-h> ^
+noremap <S-j> <S-l>
+noremap <S-k> <S-h>
+noremap <S-l> $
+noremap <ESC><ESC> :noh<CR>
+
+" when move to search results, move to center
+noremap n nzz
+noremap N Nzz
+noremap * *zz
+noremap # #zz
+noremap g* g*zz
+noremap g# g#zz
+
+" Not yunk on pasting with visual mode
+vnoremap p "_dP
+
+" use codejump from IDEA
+nnoremap <C-o> :<C-u>action Back<CR>zz
+nnoremap <C-i> :<C-u>action Forward<CR>zz
+nnoremap <C-S-o> <C-o>zz
+nnoremap <C-S-i> <C-i>zz
+
+noremap <C-]> <C-]>zz
+
+
+" ==========================
+" Window
+" ==========================
+set splitright "Window Split時に新Windowを右に表示
+set splitbelow "Window Split時に新windowを下に表示
+
+" ==========================
+" Split Window
+" ==========================
+
+nnoremap s <Nop>
+nnoremap sj <C-w>j
+nnoremap sk <C-w>k
+nnoremap sl <C-w>l
+nnoremap sh <C-w>h
+nnoremap sn gt
+nnoremap sp gT
+nnoremap ss :<C-u>sp<CR>
+nnoremap sv :<C-u>vs<CR>
+nnoremap sq :<C-u>q<CR>
+nnoremap sQ :<C-u>bd<CR>
+nnoremap <C-j> <C-e>
+nnoremap <C-k> <C-y>
+
