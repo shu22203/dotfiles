@@ -18,7 +18,7 @@ if executable('gopls')
   augroup LspGo
     au!
     autocmd User lsp_setup call lsp#register_server({
-        \ 'name': 'glpls',
+        \ 'name': 'gopls',
         \ 'cmd': {server_info->['gopls', '-mode', 'stdio']},
         \ 'whitelist': ['go'],
         \ })
@@ -44,29 +44,6 @@ if executable('pyls')
         \ 'name': 'pyls',
         \ 'cmd': {server_info->['pyls']},
         \ 'whitelist': ['python'],
-        \ })
-  endif
-
-if executable('java') && filereadable(expand('~/lsp/eclipse.jdt.ls/plugins/org.eclipse.equinox.launcher_1.5.300.v20190213-1655.jar'))
-    au User lsp_setup call lsp#register_server({
-        \ 'name': 'eclipse.jdt.ls',
-        \ 'cmd': {server_info->[
-        \     'java',
-        \     '-Declipse.application=org.eclipse.jdt.ls.core.id1',
-        \     '-Dosgi.bundles.defaultStartLevel=4',
-        \     '-Declipse.product=org.eclipse.jdt.ls.core.product',
-        \     '-Dlog.level=ALL',
-        \     '-noverify',
-        \     '-Dfile.encoding=UTF-8',
-        \     '-Xmx1G',
-        \     '-jar',
-        \     expand('~/lsp/eclipse.jdt.ls/plugins/org.eclipse.equinox.launcher_1.5.300.v20190213-1655.jar'),
-        \     '-configuration',
-        \     expand('~/lsp/eclipse.jdt.ls/config_win'),
-        \     '-data',
-        \     getcwd()
-        \ ]},
-        \ 'whitelist': ['java'],
         \ })
   endif
 
@@ -117,9 +94,9 @@ repo = 'tpope/vim-rhubarb'
 [[plugins]]
 repo = 'airblade/vim-gitgutter'
 hook_add = '''
-let g:gitgutter_sign_added = '✚'
-let g:gitgutter_sign_modified = '➜'
-let g:gitgutter_sign_removed = '✘'
+let g:gitgutter_sign_added = '++'
+let g:gitgutter_sign_modified = '**'
+let g:gitgutter_sign_removed = '--'
 '''
 
 [[plugins]]
@@ -245,37 +222,6 @@ au BufRead,BufNewFile *.md set filetype=markdown
 let g:previm_open_cmd = 'open -a "Google Chrome"'
 '''
 
-# =======
-# tags
-# =======
-[[plugins]]
-# :TagsGenerate!
-repo = 'szw/vim-tags'
-hook_add = '''
-set tags=tags
-let g:vim_tags_project_tags_command = "/usr/local/bin/ctags -R {OPTIONS} {DIRECTORY} 2>/dev/null"
-let g:vim_tags_gems_tags_command = "/usr/local/bin/ctags -R {OPTIONS} `bundle show --paths` 2>/dev/null"
-'''
-
-[[plugins]]
-repo = 'majutsushi/tagbar'
-hook_add = '''
-let g:tagbar_left = 0
-let g:tagbar_autofocus = 1
-noremap <leader>t :<c-u>TagbarToggle<cr>
-'''
-
-[[plugins]]
-repo = 'hewes/unite-gtags'
-hook_add = '''
-" カーソル下の呼び出し元一覧を出力
-nnoremap <silent> <Leader>tr  :<C-u>Unite gtags/ref:<CR>
-" カーソル下の定義元を出力
-nnoremap <silent> <Leader>td  :<C-u>Unite gtags/def:<CR>
-" タグファイル内grep
-nnoremap <silent> <Leader>tg  :<C-u>Unite gtags/grep:<CR>
-'''
-
 # [[plugins]]
 # repo = ''
 # ================
@@ -319,20 +265,11 @@ let g:NERDDefaultAlign='left'
 # Snippets
 # ==========
 [[plugins]]
-repo = 'Shougo/deoplete.nvim'
-hook_add = '''
-let g:deoplete#enable_at_startup = 1
-inoremap <expr><CR>  pumvisible() ? deoplete#close_popup() : "<CR>"
-'''
-
-# [[plugins]]
-# repo = 'Shougo/neosnippet.vim'
+repo = 'honza/vim-snippets'
 
 [[plugins]]
-repo = 'Shougo/neosnippet-snippets'
-
-[[plugins]]
-repo = 'puppetlabs/puppet-syntax-vim'
+repo = 'neoclide/coc.nvim'
+rev = 'release'
 
 [[plugins]]
 repo = 'gko/vim-coloresque'
