@@ -12,14 +12,14 @@
 [difftool "nvr"]
 	cmd = nvr -s -d $LOCAL REMOTE
 [difftool "sourcetree"]
-	cmd = opendiff $LOCAL $REMOTE
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
 	path = 
 [merge]
   tool = nvr
 [mergetool "nvr"]
   cmd = nvr -s -d $LOCAL $REMOTE $BASE $REMOTE $MERGED -c 'wincmd J | wincmd ='
 [mergetool "sourcetree"]
-	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh $LOCAL $REMOTE -ancestor $BASE -merge $MERGED
+	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
 	trustExitCode = true
 [user]
 	name = shu22203

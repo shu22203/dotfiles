@@ -7,71 +7,11 @@ repo = 'Shougo/dein.vim'
 [[plugins]]
 repo = 'prabirshrestha/async.vim'
 
-[[plugins]]
-repo = 'prabirshrestha/vim-lsp'
-hook_add = '''
-let g:lsp_log_verbose = 1
-let g:lsp_log_file = expand('~/.cache/tmp/vim-lsp.log')
-let g:lsp_diagnostics_enabled = 0
-
-if executable('gopls')
-  augroup LspGo
-    au!
-    autocmd User lsp_setup call lsp#register_server({
-        \ 'name': 'gopls',
-        \ 'cmd': {server_info->['gopls', '-mode', 'stdio']},
-        \ 'whitelist': ['go'],
-        \ })
-    autocmd FileType go setlocal omnifunc=lsp#complete
-    autocmd FileType go nmap <buffer> <C-]> <plug>(lsp-definition)
-    autocmd FileType go nmap <buffer> <Leader>n <plug>(lsp-next-error)
-    autocmd FileType go nmap <buffer> <Leader>p <plug>(lsp-previous-error)
-  augroup END
-endif
-
-if executable('solargraph')
-    " gem install solargraph
-    au User lsp_setup call lsp#register_server({
-        \ 'name': 'solargraph',
-        \ 'cmd': {server_info->[&shell, &shellcmdflag, 'solargraph stdio']},
-        \ 'initialization_options': {"diagnostics": "true"},
-        \ 'whitelist': ['ruby'],
-        \ })
-  endif
-
-if executable('pyls')
-    au User lsp_setup call lsp#register_server({
-        \ 'name': 'pyls',
-        \ 'cmd': {server_info->['pyls']},
-        \ 'whitelist': ['python'],
-        \ })
-  endif
-
-function! s:configure_lsp() abort
-  setlocal omnifunc=lsp#complete   " オムニ補完を有効化
-  " LSP用にマッピング
-  nnoremap <buffer> <C-]> :<C-u>LspDefinition<CR>
-  nnoremap <buffer> gd :<C-u>LspDefinition<CR>
-  nnoremap <buffer> gD :<C-u>LspReferences<CR>
-  nnoremap <buffer> gs :<C-u>LspDocumentSymbol<CR>
-  nnoremap <buffer> gS :<C-u>LspWorkspaceSymbol<CR>
-  nnoremap <buffer> gQ :<C-u>LspDocumentFormat<CR>
-  vnoremap <buffer> gQ :LspDocumentRangeFormat<CR>
-  nnoremap <buffer> K :<C-u>LspHover<CR>
-  nnoremap <buffer> <F1> :<C-u>LspImplementation<CR>
-  nnoremap <buffer> <F2> :<C-u>LspRename<CR>
-endfunction
-'''
-
 # =======
 # style
 # =======
 [[plugins]]
 repo = 'ryanoasis/vim-devicons'
-
-[[plugins]]
-repo = 'osyo-manga/vim-precious'
-depends = ['context_filetype.vim']
 
 [[plugins]]
 repo = 'Shougo/context_filetype.vim'
@@ -93,82 +33,11 @@ repo = 'tpope/vim-rhubarb'
 # Show git diff
 [[plugins]]
 repo = 'airblade/vim-gitgutter'
-hook_add = '''
-let g:gitgutter_sign_added = '++'
-let g:gitgutter_sign_modified = '**'
-let g:gitgutter_sign_removed = '--'
-'''
-
-[[plugins]]
-repo = 'mgee/lightline-bufferline'
 
 [[plugins]]
 repo = 'itchyny/lightline.vim'
 hook_add = '''
-let g:lightline = {
-      \ 'colorscheme': 'tender',
-      \ 'tabline': {
-      \   'left': [
-      \             ['bufferinfo'],
-      \             ['separator'],
-      \             ['bufferbefore', 'buffercurrent', 'bufferafter'],
-      \           ],
-      \   'right': [
-      \             ['close']
-      \           ]
-      \ },
-      \ 'active': {
-      \   'left': [
-      \             ['mode', 'paste' ],
-      \             ['readonly', 'filename', 'modified']
-      \           ],
-      \   'right': [
-      \             ['linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok'],
-      \             ['fugitive', 'percent'],
-      \             ['fileformat', 'fileencoding', 'filetype', 'lineinfo']
-      \            ]
-      \ },
-      \ 'component_function': {
-      \   'bufferinfo': 'lightline#buffer#bufferinfo',
-      \   'fugitive': 'LightLineFugitive',
-      \   'ale': 'LightLineAle',
-      \ },
-      \ 'component_expand': {
-      \   'buffercurrent': 'lightline#buffer#buffercurrent',
-      \   'bufferbefore': 'lightline#buffer#bufferbefore',
-      \   'bufferafter': 'lightline#buffer#bufferafter',
-      \   'linter_checking': 'lightline#ale#checking',
-      \   'linter_warnings': 'lightline#ale#warnings',
-      \   'linter_errors': 'lightline#ale#errors',
-      \   'linter_ok': 'lightline#ale#ok',
-      \ },
-      \ 'component_type': {
-      \   'buffercurrent': 'tabsel',
-      \   'bufferbefore': 'raw',
-      \   'bufferafter': 'raw',
-      \   'linter_checking': 'left',
-      \   'linter_warnings': 'warning',
-      \   'linter_errors': 'error',
-      \   'linter_ok': 'left',
-      \ },
-      \ 'component': {
-      \   'separator': '',
-      \ },
-      \ 'separator': {'left': "\ue0b0", 'right': "\ue0b2"},
-      \ 'subseparator': {'left': "\ue0b1", 'right': "\ue0b3"}
-      \ }
-
-function! LightLineFugitive()
-  try
-    if expand('%:t') !~? 'Tagbar\|Gundo\|NERD' && &ft !~? 'vimfiler' && exists('*fugitive#head')
-      let mark = "\ue0a0 "
-      let _ = fugitive#head()
-      return strlen(_) ? mark._ : ''
-    endif
-  catch
-  endtry
-  return ''
-endfunction
+source ~/dotfiles/nvim/plugins/lightline.vim
 '''
 
 [[plugins]]
@@ -192,8 +61,6 @@ let g:lightline_buffer_git_icon = "\ue0a0 "
 let g:lightline_buffer_ellipsis_icon = '..'
 let g:lightline_buffer_expand_left_icon = '◀ '
 let g:lightline_buffer_expand_right_icon = ' ▶'
-let g:lightline_buffer_active_buffer_left_icon = ''
-let g:lightline_buffer_active_buffer_right_icon = ''
 let g:lightline_buffer_separator_icon = '  '
 
 " lightline-buffer function settings
@@ -265,11 +132,20 @@ let g:NERDDefaultAlign='left'
 # Snippets
 # ==========
 [[plugins]]
+repo = 'SirVer/ultisnips'
+
+[[plugins]]
 repo = 'honza/vim-snippets'
 
 [[plugins]]
 repo = 'neoclide/coc.nvim'
 rev = 'release'
+build = './install.sh nightly'
+hook_add = '''
+source ~/dotfiles/nvim/plugins/coc-setting.vim
+let g:coc_status_error_sign ="\uf05e " 
+let g:coc_status_warning_sign = "\uf071 "
+'''
 
 [[plugins]]
 repo = 'gko/vim-coloresque'
