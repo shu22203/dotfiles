@@ -104,6 +104,9 @@ nnoremap <silent><C-e> :NERDTreeToggle<CR>
 # Utils
 # =======
 [[plugins]]
+repo = 'shu22203/vim-Bclose'
+
+[[plugins]]
 repo = 'kana/vim-submode'
 
 [[plugins]]

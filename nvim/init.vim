@@ -136,7 +136,7 @@ nnoremap cp :cprev<CR>
 
 " Write and quit
 nnoremap <Leader>w :w<CR>
-nnoremap <Leader>q :q<CR>
+nnoremap <leader>q :Bclose<CR>
 nnoremap <Leader>wq :wq<CR>
 nnoremap <Leader>qq :q!<CR>
 
@@ -242,7 +242,7 @@ nnoremap so <C-w>_<C-w>|
 nnoremap ss :<C-u>sp<CR>
 nnoremap sv :<C-u>vs<CR>
 " Delete buffer
-nnoremap sq :<C-u>bd<CR>
+nnoremap sq :Bclose<CR>
 " Delete window
 nnoremap sQ :<C-u>q<CR>
 " Move buffer
