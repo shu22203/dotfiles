@@ -65,5 +65,6 @@ srcs:=.vimrc .ideavimrc .vim .zshrc .zshrc.mine .tigrc .latexmkrc .gitconfig .gi
 
 link:
 	$(foreach src,$(srcs),ln -Fs $(PWD)/$(src) $(HOME)/$(src);)
+	ln -Fs $(PWD)/nvim/coc ~/.config/coc
 	mkdir $(HOME)/.vimback $(HOME)/.vimtmp
 

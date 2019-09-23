@@ -11,3 +11,10 @@ configstore
 .vim/plugged/*
 .idea/
 .zshrc.mine
+
+# Coc
+nvim/coc/*
+!nvim/coc/extensions
+nvim/coc/extensions/*
+!nvim/coc/extensions/package.json
+!nvim/coc/extensions/yarn.lock
