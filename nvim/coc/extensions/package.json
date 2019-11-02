@@ -1,11 +1,11 @@
 {
   "dependencies": {
-    "coc-snippets": ">=2.1.11",
-    "coc-vimlsp": ">=0.3.9",
+    "coc-snippets": ">=2.1.13",
+    "coc-vimlsp": ">=0.4.2",
     "coc-phpls": ">=2.0.7",
-    "coc-vetur": ">=1.1.5",
-    "coc-tsserver": ">=1.4.0",
+    "coc-vetur": ">=1.1.6",
+    "coc-tsserver": ">=1.4.5",
     "coc-eslint": ">=1.2.2",
-    "coc-prettier": ">=1.1.7"
+    "coc-prettier": ">=1.1.10"
   }
 }

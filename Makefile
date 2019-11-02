@@ -10,6 +10,7 @@ deps:
 brew:
 # cask
 	brew cask install docker
+	brew cask install google-cloud-sdk
 
 # core
 	brew install wget
@@ -31,29 +32,7 @@ brew:
 	brew install tig
 
 # Programming
-	brew install anyenv
-	brew install gcc
-	brew install glide
-	brew install haskell-stack
-	brew install scala
-	brew install sbt
-	brew install maven
 	brew install awscli
-	brew install protobuf
-
-# Database
-	brew install mysql
-	brew install postgresql
-	brew install sqlite
-	brew install mongodb
-	brew install memcached
-	brew install redis
-	brew install cassandra
-	brew install leveldb
-
-# others
-	brew install ctags
-	brew install imagemagick@6
 
 	brew cleanup
 

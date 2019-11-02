@@ -116,26 +116,26 @@ fi
 # ls color
 case "${OSTYPE}" in
   darwin*)
-  alias l="ls -l"
   alias la="ls -a"
+  alias ll="ls -l"
   alias lla="ls -la"
   alias lt="ls --tree"
     ;;
   linux*)
-  alias l='ls -l --color'
   alias la='ls -a --color'
+  alias ll='ls -l --color'
   alias lla='ls -la --color'
   alias lt='ls --tree --color'
    ;;
 esac
 
-if [[ -x `which colordiff` ]]; then
-  alias diff='colordiff -u'
+alias lsg="ls | grep "
+
+if [[ -x `which diff-so-fancy` ]]; then
+  alias diff='diff-so-fancy'
 else
   alias diff='diff -u'
 fi
-
-alias lsg="ls | grep "
 
 # vim
 alias vi="nvim"
