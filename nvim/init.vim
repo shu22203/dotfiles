@@ -49,7 +49,7 @@ set modelines=5
 
 " display
 set title
-set number
+set relativenumber number
 set ruler
 set showmatch
 set wrap

@@ -45,6 +45,7 @@ export PATH="$HOME/bin:/usr/local/bin:/usr/local/sbin:/usr/sbin:/usr/bin:/sbin:/
 
 export ANYENV_DEFINITION_ROOT=$HOME/.anyenv/anyenv-install
 eval "$(anyenv init -)"
+export GOENV_DISABLE_GOPATH=1
 
 export XDG_CONFIG_HOME=$HOME/dotfiles
 
