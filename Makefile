@@ -24,6 +24,10 @@ brew:
 	brew install direnv
 	brew install ripgrep
 	brew install jq
+	brew install bat
+	brew install fd
+	brew install lsd
+	brew install diff-so-fancy
 
 # Git
 	brew install git
@@ -33,6 +37,8 @@ brew:
 
 # Programming
 	brew install awscli
+
+	brew tap beeftornado/rmtree && brew install beeftornado/rmtree/brew-rmtree
 
 	brew cleanup
 
