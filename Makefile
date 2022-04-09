@@ -9,18 +9,16 @@ deps:
 
 brew:
 # cask
-	brew cask install docker
-	brew cask install google-cloud-sdk
+	brew install --cask google-cloud-sdk
 
 # core
 	brew install wget
-	brew install zplug
-	brew install zsh
 	brew install neovim
 	brew install coreutils
 	brew install nkf
 	brew install tree
 	brew install fzf
+	brew install asdf
 	brew install direnv
 	brew install ripgrep
 	brew install jq
@@ -28,11 +26,12 @@ brew:
 	brew install fd
 	brew install lsd
 	brew install diff-so-fancy
+	brew install tldr
 
 # Git
 	brew install git
 	brew install ghq
-	brew install hub
+	brew install gh
 	brew install tig
 
 # Programming

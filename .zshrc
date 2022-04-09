@@ -43,13 +43,13 @@ typeset -U path cdpath fpath manpath
 
 export PATH="$HOME/bin:/usr/local/bin:/usr/local/sbin:/usr/sbin:/usr/bin:/sbin:/bin:$HOME/.local/bin"
 
-export ANYENV_DEFINITION_ROOT=$HOME/.anyenv/anyenv-install
-eval "$(anyenv init -)"
+. /opt/homebrew/opt/asdf/asdf.sh
+
 export GOENV_DISABLE_GOPATH=1
 
 export XDG_CONFIG_HOME=$HOME/dotfiles
 
-export HOMEBREW_INSTALL_CLEANUP=1
+eval "$(/opt/homebrew/bin/brew shellenv)"
 
 export JAVA_OPTS='-Dfile.encoding=UTF-8'
 export JAVA_HOME=`/usr/libexec/java_home -v 1.8`
