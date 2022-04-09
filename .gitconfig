@@ -29,6 +29,9 @@
 	template = /Users/shu/.stCommitMsg
 [ghq]
   root = ~/src
+[url "github:"]
+    InsteadOf = https://github.com/
+    InsteadOf = git@github.com:
 [alias]
     # http://oli.jp/2012/git-powerup/
     # http://blog.blindgaenger.net/advanced_git_aliases.html
