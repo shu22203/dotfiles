@@ -2,6 +2,7 @@
 ###################
 tags
 .envrc
+.tool-versions
 
 # Compiled source #
 ###################

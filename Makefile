@@ -22,6 +22,7 @@ brew:
 	brew install direnv
 	brew install ripgrep
 	brew install jq
+	brew install yq
 	brew install bat
 	brew install fd
 	brew install lsd
@@ -36,6 +37,7 @@ brew:
 
 # Programming
 	brew install awscli
+	brew install aws-vault
 
 	brew tap beeftornado/rmtree && brew install beeftornado/rmtree/brew-rmtree
 
