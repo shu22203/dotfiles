@@ -86,7 +86,7 @@ repo = 'kannokanno/previm'
 repo = 'tyru/open-browser.vim'
 hook_add = '''
 au BufRead,BufNewFile *.md set filetype=markdown
-let g:previm_open_cmd = 'open -a "Google Chrome"'
+let g:previm_open_cmd = 'open -a "Vivaldi"'
 '''
 
 # [[plugins]]
@@ -98,6 +98,7 @@ let g:previm_open_cmd = 'open -a "Google Chrome"'
 repo = 'scrooloose/nerdtree'
 hook_add = '''
 nnoremap <silent><C-e> :NERDTreeToggle<CR>
+let g:NERDTreeChDirMode = 2
 '''
 
 # =======

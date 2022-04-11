@@ -18,6 +18,7 @@ nmap <Space> [fzf]
 nnoremap [fzf]b :Buffers<CR>
 nnoremap [fzf]c :Commands<CR>
 nnoremap [fzf]g :GFiles<CR>
+nnoremap [fzf]] :call fzf#run(fzf#wrap({'source': 'ghq list --full-path', 'sink': 'e' }))<CR>
 command! FZFMru call fzf#run({
 \  'source':  v:oldfiles,
 \  'sink':    'e',
