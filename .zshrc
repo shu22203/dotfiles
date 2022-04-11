@@ -239,6 +239,10 @@ bindkey '^]' peco_src
 # -------------------------------------
 # Others
 # -------------------------------------
+function avt {
+  profile=$1; shift
+  aws-vault exec $profile -- "$@";
+}
 
 # "ls" after "cd" automatically
 function chpwd() { ls }

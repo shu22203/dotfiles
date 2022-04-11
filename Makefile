@@ -14,7 +14,6 @@ brew:
 # core
 	brew install wget
 	brew install neovim
-	brew install coreutils
 	brew install nkf
 	brew install tree
 	brew install fzf
@@ -29,11 +28,22 @@ brew:
 	brew install diff-so-fancy
 	brew install tldr
 
+# glu
+	brew install coreutils
+	brew install diffutils
+	brew install findutils
+	brew install gawk
+	brew install gnu-sed
+	brew install gnu-tar
+	brew install grep
+	brew install gzip
+
 # Git
 	brew install git
 	brew install ghq
 	brew install gh
 	brew install tig
+	brew install git-extras
 
 # Programming
 	brew install awscli
