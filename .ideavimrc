@@ -26,6 +26,7 @@ set wrapscan
 imap <C-j> <Esc>
 vmap <C-j> <Esc>
 cmap <C-j> <Esc>
+nmap <C-j> <Esc>
 
 " Swap colon
 nnoremap ; :

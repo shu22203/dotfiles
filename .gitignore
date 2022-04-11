@@ -13,6 +13,7 @@ configstore
 .zshrc.mine
 
 # Coc
+node_modules
 nvim/coc/*
 !nvim/coc/extensions
 nvim/coc/extensions/*

@@ -100,8 +100,8 @@ setopt auto_cd
 
 ## Command history configuration
 HISTFILE=${HOME}/.zsh_history
-HISTSIZE=50000
-SAVEHIST=50000
+HISTSIZE=200000
+SAVEHIST=200000
 setopt hist_ignore_dups     # ignore duplication command history list
 setopt share_history        # share command history data
 
@@ -159,6 +159,12 @@ if [[ -x `which gseq` ]]; then
   alias seq='gseq'
 fi
 
+# Docker for Mac VM への ssh
+alias docker-ssh='docker run -it --privileged --pid=host debian nsenter -t 1 -m -u -n -i bash'
+
+
+# reset docker world
+alias docker-balus='docker system prune -af --volumes && docker rmi $(docker images -a -q)'
 # postgresql起動
 alias psqlstart="postgres -D /usr/local/var/postgres"
 
