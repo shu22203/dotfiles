@@ -67,6 +67,7 @@ set autoindent
 set smartindent
 
 " others
+set autochdir
 set backspace=indent,eol,start
 set wildmenu
 set mouse=a
@@ -86,7 +87,7 @@ else
   endif
 set background=dark
 let g:hybrid_use_iTerm_colors = 1
-colorscheme tender
+colorscheme codedark
 highlight Normal ctermbg=none
 
 " ==============================

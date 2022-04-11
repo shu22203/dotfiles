@@ -17,10 +17,10 @@ repo = 'ryanoasis/vim-devicons'
 repo = 'Shougo/context_filetype.vim'
 
 [[plugins]]
-repo = 'jacoborus/tender.vim'
+repo = 'w0ng/vim-hybrid'
 
 [[plugins]]
-repo = 'w0ng/vim-hybrid'
+repo = 'tomasiser/vim-code-dark'
 
 # Git wrappper
 # ex) :Gdiff, :Gstatus, :Gblame, :Gbrowse
