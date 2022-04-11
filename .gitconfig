@@ -46,7 +46,6 @@
     d = diff
     dc = diff --cached
     ds = diff --staged
-    delete-merged-branches = !git branch --merged | grep -v \\* | xargs -I % git branch -d %
     f = fetch --prune
     fetch-pulls = fetch origin +refs/pull/*:refs/remotes/pull/*
     fs = !git f && git su

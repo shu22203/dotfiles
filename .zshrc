@@ -247,6 +247,10 @@ function avt {
 # "ls" after "cd" automatically
 function chpwd() { ls }
 
+# enable git-extras aliases
+source /opt/homebrew/opt/git-extras/share/git-extras/git-extras-completion.zsh
+
+# read environment specific settings
 source ~/.zshrc.mine
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
