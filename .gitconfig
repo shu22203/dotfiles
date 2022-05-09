@@ -9,14 +9,23 @@
 	editor = vim -f
 	pager = diff-so-fancy | less --tabs=4 -RFX
 [diff]
-  tool = nvr
+  tool = nvimdiff
+  # tool = nvr
+[difftool]
+  prompt = false
+[difftool "nvimdiff"]
+  cmd = nvim -d \"$LOCAL\" \"$REMOTE\"
 [difftool "nvr"]
-	cmd = nvr -s -d $LOCAL REMOTE
+  cmd = nvr -s -d $LOCAL $REMOTE
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
 	path = 
 [merge]
-  tool = nvr
+	tool = nvimdiff
+[mergetool]
+	prompt = false
+[difftool "nvimdiff"]
+  cmd = nvim -d \"$LOCAL\" \"$REMOTE\"
 [mergetool "nvr"]
   cmd = nvr -s -d $LOCAL $REMOTE $BASE $REMOTE $MERGED -c 'wincmd J | wincmd ='
 [mergetool "sourcetree"]

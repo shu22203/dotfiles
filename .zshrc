@@ -20,7 +20,8 @@ zplug "zsh-users/zsh-syntax-highlighting", defer:2
 zplug "zsh-users/zsh-completions"
 zplug "zsh-users/zsh-autosuggestions", defer:2
 zplug "b4b4r07/enhancd", use:init.sh
-zplug "themes/candy-modified", from:oh-my-zsh, as:theme
+# zplug "themes/candy-modified", from:oh-my-zsh, as:theme
+zplug "themes/candy", from:oh-my-zsh, as:theme
 
 # Install plugins if there are plugins that have not been installed
 if ! zplug check --verbose; then
@@ -132,15 +133,16 @@ esac
 
 alias lsg="ls | grep "
 
-if [[ -x `which diff-so-fancy` ]]; then
-  alias diff='diff-so-fancy'
-else
-  alias diff='diff -u'
-fi
+# if [[ -x `which diff-so-fancy` ]]; then
+#   alias diff='diff-so-fancy'
+# else
+#   alias diff='diff -u'
+# fi
 
 # vim
 alias vi="nvim"
 alias vim="nvim"
+alias vimdiff="nvim -d"
 
 # Terraform
 alias tf="terraform"
@@ -158,6 +160,9 @@ fi
 if [[ -x `which gseq` ]]; then
   alias seq='gseq'
 fi
+if [[ -x `which gtar` ]]; then
+  alias tar='gtar'
+fi
 
 # Docker for Mac VM への ssh
 alias docker-ssh='docker run -it --privileged --pid=host debian nsenter -t 1 -m -u -n -i bash'
@@ -165,6 +170,7 @@ alias docker-ssh='docker run -it --privileged --pid=host debian nsenter -t 1 -m 
 
 # reset docker world
 alias docker-balus='docker system prune -af --volumes && docker rmi $(docker images -a -q)'
+
 # postgresql起動
 alias psqlstart="postgres -D /usr/local/var/postgres"
 

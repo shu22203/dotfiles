@@ -265,3 +265,9 @@ call submode#map('bufmove', 'n', '', '-', '<C-w>-')
 " --------------
 " Auto startup
 let g:indent_guides_enable_on_vim_startup = 1
+
+" vimdiffの色設定
+highlight DiffAdd    cterm=bold ctermfg=10 ctermbg=22
+highlight DiffDelete cterm=bold ctermfg=10 ctermbg=52
+highlight DiffChange cterm=bold ctermfg=10 ctermbg=17
+highlight DiffText   cterm=bold ctermfg=10 ctermbg=21
